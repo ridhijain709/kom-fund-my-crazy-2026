@@ -13,3 +13,9 @@
 ---
 ### Core Concept
 Transforming public transit stops and municipal shelters in peripheral, Tier-3 student corridors into ambient cognitive launchpads powered by **Google Gemini**. Ingests unallocated corporate exhaust, de-jargonizes operational bottlenecks into accessible Micro-Briefs, scaffolds student logic in real time, and blindly routes verified solutions straight into corporate ATS pipelines.
+
+---
+### Team & National Finalist Delegation
+* **Ridhi Jain** — Founder & Principal System Architect (Application `#FMC-2026-KOM-8842`)
+* **[Adib Khan](https://www.linkedin.com/in/adibkhan0311/)** — Collaborator, Co-Presenter & Strategic Storyteller (Stage Lead)
+
