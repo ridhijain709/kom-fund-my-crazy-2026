@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>KOM — Adib Khan: Grand Finale Stage Defense Playbook</title>
+  <title>KOM — Grand Finale Stage Defense Playbook</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800;900&display=swap');
 
@@ -637,14 +637,14 @@
 <div class="cover">
   <div class="cover-top-bar">
     <span>PROJECT KOM — APPLICATION #FMC-2026-KOM-8842</span>
-    <span>CONFIDENTIAL · FOR ADIB KHAN ONLY</span>
+    <span>CONFIDENTIAL · FOUNDER & FINALIST STAGE PLAYBOOK</span>
   </div>
 
   <div class="cover-body">
     <div class="cover-eyebrow">Grand Finale Stage Preparation · October 1, 2026 · IIT Delhi</div>
 
     <div class="cover-title">
-      Adib Khan's<br>
+      Grand Finale<br>
       <span class="amber">Stage Defense</span><br>
       <span class="cyan">Playbook</span>
     </div>
@@ -659,8 +659,8 @@
     <div class="cover-meta-grid">
       <div class="cover-meta-card">
         <div class="cover-meta-label">Presenter</div>
-        <div class="cover-meta-value">Adib Khan</div>
-        <div class="cover-meta-value small" style="color:#94A3B8; font-weight:400; margin-top:3px;">Collaborator & Stage Presenter</div>
+        <div class="cover-meta-value">Ridhi Jain</div>
+        <div class="cover-meta-value small" style="color:#94A3B8; font-weight:400; margin-top:3px;">Founder & Stage Presenter</div>
       </div>
       <div class="cover-meta-card">
         <div class="cover-meta-label">System Architect</div>
@@ -705,7 +705,7 @@
 <div class="page-break">
   <div class="page-header">
     <div class="page-header-left">Section 01 — Stage Architecture &amp; Mindset Briefing</div>
-    <div class="page-header-right">ADIB KHAN · KOM STAGE PLAYBOOK · FMC-2026</div>
+    <div class="page-header-right">KOM GRAND FINALE STAGE PLAYBOOK · FMC-2026</div>
   </div>
 
   <div class="section-header">
@@ -769,11 +769,11 @@
   </div>
 
   <div class="opener-box">
-    <div class="opener-label">ADIB KHAN — VERBATIM STAGE OPENER</div>
+    <div class="opener-label">VERBATIM STAGE OPENING HOOK</div>
     <div class="opener-text">
       "88% of India's highest-yield career opportunities are locked inside 2.4% of its urban surface area.<br><br>
       12.4 million students commute past the solution every single day — they just can't see it yet.<br><br>
-      My name is Adib Khan. This is Project KOM. And in the next 8 minutes, I am going to show you exactly how we flip that."
+      My name is Ridhi Jain. This is Project KOM. And in the next 8 minutes, I am going to show you exactly how we flip that."
     </div>
     <div class="opener-note">📌 Delivery note: Walk on stage. Stand still. Look directly at Varun Mayya. Say the first line slowly. Pause 2 full seconds. Then continue. Do NOT rush the opening.</div>
   </div>
@@ -821,7 +821,7 @@
 <div class="page-break">
   <div class="page-header">
     <div class="page-header-left">Section 02 — Judge Attack Defense: Varun Mayya</div>
-    <div class="page-header-right">ADIB KHAN · KOM STAGE PLAYBOOK · FMC-2026</div>
+    <div class="page-header-right">KOM GRAND FINALE STAGE PLAYBOOK · FMC-2026</div>
   </div>
 
   <div class="judge-header">
@@ -842,7 +842,7 @@
       <div class="qa-attack-text">"Why are you using Gemini? GPT-4 is more capable. Are you just using Google's product because this is a Google competition?"</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "Fair question — and no, this is not brand loyalty. KOM requires <strong>structured JSON output as a hard constraint</strong>. Gemini 1.5 Pro's native JSON mode produces deterministic, schema-valid output with every API call — GPT-4 requires extensive prompt engineering to achieve the same reliability, and it still fails at edge cases. In our Dual-Agent pipeline, the Sanitizer Shield parses JSON in real-time — if the model output deviates from the schema, the evaluation is voided instantly. <em>Gemini is the only model that makes that constraint production-safe.</em> And since the competition's infrastructure is on Google Cloud, our latency profile is 40% lower. It's an engineering decision, not a marketing one."
       </div>
@@ -859,7 +859,7 @@
       <div class="qa-attack-text">"Walk me through the actual API call sequence from the moment a student scans the QR code to the moment that data hits the ATS. Precisely."</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "Absolutely. Step 1: Student scans QR on the e-paper node — this triggers a lightweight form on their browser, no app download required. Step 2: The micro-brief submission — roughly 180 words — hits our <strong>Node-RED IoT Gateway</strong> running on a Raspberry Pi CM4. Step 3: The payload is cached in <strong>Redis ElastiCache</strong> with a 24-hour TTL — this is our edge buffer that prevents any single point of API failure. Step 4: Our <strong>Sanitizer Shield Agent</strong> applies FFT entropy filtering, strips PII, and validates the JSON schema. Step 5: The clean payload hits the <strong>Gemini 1.5 Pro API in JSON Mode</strong>, which scores the candidate across three dimensions — skill signal at 30%, applied context at 30%, and opportunity fit at 40%. Step 6: The score object, structured as a JSON ATS payload, is pushed via <strong>RESTful webhook to Workday Integration Cloud or Greenhouse Harvest API</strong>. The student's raw data never touches the corporate database directly. <em>The entire pipeline runs in under 4 seconds.</em>"
       </div>
@@ -876,7 +876,7 @@
       <div class="qa-attack-text">"How do you prevent prompt injection? Smart students will figure out the evaluation criteria and inject malicious prompts into their micro-brief to game the scoring."</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "This is exactly why we built a <strong>two-agent architecture rather than a single model call</strong>. Agent One — the Sanitizer Shield — never evaluates candidates. Its sole function is security: it runs <strong>FFT bandpass filtering at 300Hz to 3.4kHz</strong> to kill acoustic injection attacks, applies entropy analysis to detect AI-generated text patterns, and applies a semantic rewrite filter that strips any imperative instruction fragments from the brief. <strong>A gaming attempt literally cannot reach Agent Two</strong> — the Evaluator — because it's already been sanitized. Additionally, the evaluation schema is a <strong>deterministic 30-30-40 weighted rubric</strong> — the model is not reading free-form instructions, it is answering structured scoring questions. You cannot inject a prompt into a scoring rubric. The attack surface simply does not exist in the way you'd expect from a naive single-agent setup."
       </div>
@@ -893,7 +893,7 @@
       <div class="qa-attack-text">"Redis ElastiCache costs real money. What's your actual compute cost per evaluation?"</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "At Phase 1 volumes — roughly 500 to 2,000 evaluations per month — <strong>total infrastructure cost is approximately ₹3,200 to ₹8,500 per month</strong>. That is ₹4 to ₹6 per evaluation. Our corporate subscription model charges ₹14,200 per verified hire. If we convert one in fifty evaluations into a hire, we are already margin-positive. And Phase 1 uses municipal library PCs as the ingestion layer — <strong>there is zero edge hardware cost until we cross 500 verified hires</strong>. The Redis cluster scales with demand — our architecture is designed to be cost-minimal before product-market fit is confirmed and capital-efficient once it is."
       </div>
@@ -913,7 +913,7 @@
 <div class="page-break">
   <div class="page-header">
     <div class="page-header-left">Section 03 — Judge Attack Defense: Tanmay Bhat</div>
-    <div class="page-header-right">ADIB KHAN · KOM STAGE PLAYBOOK · FMC-2026</div>
+    <div class="page-header-right">KOM GRAND FINALE STAGE PLAYBOOK · FMC-2026</div>
   </div>
 
   <div class="judge-header">
@@ -934,7 +934,7 @@
       <div class="qa-attack-text">"Nobody stands at a bus stop and reads a corporate case study. This is a fantasy. Real students are on their phones watching Reels."</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "You're right — and that's exactly the design insight. <strong>KOM is not a corporate case study. It's a 3-question micro-brief on a screen that takes 4 minutes to complete.</strong> Think of it as a QR-gated micro-task — the same behavioral mechanic that made Google Pay's scratch cards viral in Tier-2 cities in 2019. The student scans the QR, sees three text fields on their phone — no app, no sign-up, no 40-page form — and submits. That's it. The insight is this: <strong>18.2 minutes of transit dwell time is dead time</strong>. We're not competing with Reels for engagement — we're filling a gap that currently produces zero economic value for the student. We're offering career momentum in exchange for 4 minutes of dead commute time. That's a trade students will make."
       </div>
@@ -951,7 +951,7 @@
       <div class="qa-attack-text">"How do you get your first 1,000 users? Give me a specific, realistic plan — not 'we'll partner with municipalities.'"</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "Specifically: <strong>Phase 0 is a 90-day hyper-local campus loop.</strong> We deploy KOM nodes at 3 high-commuter municipal library branches adjacent to the largest Tier-2 college clusters — Agra, Kanpur, Varanasi as our pilot corridor. Each library already has PC terminals and student footfall of 200 to 400 per day. <strong>Day 1 we go to the student unions</strong> — one per campus — and offer a simple deal: participate in a 4-minute career brief, get a micro-certificate and a ₹50 Paytm cashback. That costs us ₹50,000 to seed 1,000 first completions. At a 40% resubmission rate — which is standard for gamified career tools — we hit 1,400 completions organically. The first corporate hire validates the model publicly. That social proof, combined with WhatsApp sharing of the micro-certificate, creates the viral loop. <em>WhatsApp is the Reel for Tier-2 India.</em>"
       </div>
@@ -968,7 +968,7 @@
       <div class="qa-attack-text">"Why would a student choose this over just watching YouTube tutorials or applying on LinkedIn? What's the actual value add?"</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "LinkedIn requires a polished profile, a CV, professional photos, and a premium account to even be visible to the right recruiters. <strong>A student in Agra with a 7.2 CGPA and no LinkedIn network is functionally invisible on that platform.</strong> YouTube tutorials are consumption — they don't generate signal for employers. KOM is different: it's a <strong>signal production engine</strong>. The student produces a structured competency brief that reaches corporate ATS systems directly. They are not competing with 40,000 LinkedIn applicants — they are one of 15 pre-qualified candidates in a specific skill-transit corridor. <strong>The value prop is not better content — it's a direct bridge to an outcome: a job interview.</strong> That is a fundamentally different category from edtech."
       </div>
@@ -985,7 +985,7 @@
       <div class="qa-attack-text">"Explain this whole thing to me like I'm a 10-year-old."</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "You know how your school has a notice board outside, and sometimes companies post internship flyers on it? Imagine if that notice board was smart — it could read what you wrote about yourself, figure out what you're good at, and automatically send your profile to the company that posted the flyer. And you could fill it out on your phone while waiting for the bus. That's KOM. <strong>A smart notice board at bus stops that connects students to jobs, automatically.</strong>"
       </div>
@@ -1005,7 +1005,7 @@
 <div class="page-break">
   <div class="page-header">
     <div class="page-header-left">Section 04 — Judge Attack Defense: Sahiba Bali</div>
-    <div class="page-header-right">ADIB KHAN · KOM STAGE PLAYBOOK · FMC-2026</div>
+    <div class="page-header-right">KOM GRAND FINALE STAGE PLAYBOOK · FMC-2026</div>
   </div>
 
   <div class="judge-header">
@@ -1026,7 +1026,7 @@
       <div class="qa-attack-text">"Municipal bodies in India have 3-year procurement cycles and 14-committee approval chains. This will never launch in any meaningful timeframe."</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "This is exactly why <strong>KOM Phase 1 requires zero municipal procurement.</strong> Let me be precise: Phase 1 operates entirely on existing municipal library infrastructure — computers that are already purchased, already networked, already maintained. We don't need a new procurement cycle. We need a <strong>single MoU with the District Library Authority</strong> — which is an administrative agreement, not a capital procurement. That can happen in 8 to 12 weeks in most states. <strong>Phase 1 produces 500 verified hires as proof of impact before a single rupee of municipal hardware capex is approved.</strong> We enter the procurement cycle with case studies, hire numbers, and a state government that wants to claim credit for the outcome. That changes the conversation from 'approve this experiment' to 'extend what's already working.'"
       </div>
@@ -1043,7 +1043,7 @@
       <div class="qa-attack-text">"Who is liable if your hardware is vandalized, causes injury, or malfunctions in a public space? You are dealing with public infrastructure."</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "Phase 1 answers this completely because <strong>Phase 1 has no public hardware.</strong> Everything runs on existing library PC terminals — liability is identical to a library computer. For Phase 2 — the transit shelter nodes — liability is structured identically to the existing Urban Local Body advertising concession model. DMRC, BMTC, and every major transit authority already license display panels under a concession agreement with a private operator who holds the maintenance liability. KOM nodes follow that same legal template. <strong>The liability structure already exists in Indian law — we're not creating new legal territory, we're operating within it.</strong>"
       </div>
@@ -1060,7 +1060,7 @@
       <div class="qa-attack-text">"What about DPDP Act compliance? Are you collecting sensitive personal data from students without proper consent mechanisms?"</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "KOM was engineered with privacy-by-design from Day 1. Three layers: <strong>First — consent is granular and explicit</strong> at the point of QR scan — the student sees a plain-language data use agreement before submitting anything. <strong>Second — the Dual-Agent security pipeline applies Laplace differential privacy with epsilon 0.5</strong> before any data leaves our edge layer — the actual corporate ATS payload contains no raw PII, only a structured competency score and anonymized regional signal. <strong>Third — 24-hour TTL on all cache payloads</strong> means raw submission data is deleted from our edge within one day, and synthetic case data is used for model calibration, not real submissions. We are DPDP-aligned by architecture, not by compliance checkbox."
       </div>
@@ -1077,7 +1077,7 @@
       <div class="qa-attack-text">"How is this different from a fancy public notice board? I could stick a QR code on any wall and link it to a Google Form."</div>
     </div>
     <div class="qa-response">
-      <div class="qa-response-label">▶ Adib's Verbatim Response</div>
+      <div class="qa-response-label">▶ Verbatim Stage Defense</div>
       <div class="qa-response-text">
         "A Google Form delivers unstructured text to a recruiter's inbox. A recruiter then reads 400 of them manually. <strong>KOM delivers a scored, ATS-formatted, privacy-filtered competency profile directly to a Workday or Greenhouse pipeline — bypassing the recruiter's inbox entirely.</strong> The difference is the AI evaluation layer: the Dual-Agent Gemini pipeline converts free-form human expression into structured machine-readable talent signal in real-time. A QR code on a wall is an input channel. KOM is an input channel plus an AI-powered evaluation engine plus a direct ATS integration. <em>Those are fundamentally different products.</em>"
       </div>
@@ -1093,7 +1093,7 @@
 <div class="page-break">
   <div class="page-header">
     <div class="page-header-left">Section 05 — Financial &amp; Competitive Moat Attack Defense</div>
-    <div class="page-header-right">ADIB KHAN · KOM STAGE PLAYBOOK · FMC-2026</div>
+    <div class="page-header-right">KOM GRAND FINALE STAGE PLAYBOOK · FMC-2026</div>
   </div>
 
   <div class="section-header">
@@ -1172,7 +1172,7 @@
 <div class="page-break">
   <div class="page-header">
     <div class="page-header-left">Section 06 — One-Liner Arsenal &amp; Stage Choreography</div>
-    <div class="page-header-right">ADIB KHAN · KOM STAGE PLAYBOOK · FMC-2026</div>
+    <div class="page-header-right">KOM GRAND FINALE STAGE PLAYBOOK · FMC-2026</div>
   </div>
 
   <div class="section-header">
@@ -1290,7 +1290,7 @@
 <div class="page-break">
   <div class="page-header">
     <div class="page-header-left">Section 07 — Closing Vision Script &amp; Final Prep Checklist</div>
-    <div class="page-header-right">ADIB KHAN · KOM STAGE PLAYBOOK · FMC-2026</div>
+    <div class="page-header-right">KOM GRAND FINALE STAGE PLAYBOOK · FMC-2026</div>
   </div>
 
   <div class="section-header">
@@ -1299,7 +1299,7 @@
   </div>
 
   <div class="opener-box">
-    <div class="opener-label">ADIB KHAN — VERBATIM CLOSING SCRIPT</div>
+    <div class="opener-label">VERBATIM CLOSING SCRIPT</div>
     <div class="opener-text">
       "India's talent problem is not a skill problem. It's a signal problem.<br><br>
       12.4 million students carry the competencies that India's corporates need. The only reason those two parties have never met is a 400-kilometre infrastructure gap between a Tier-2 bus stop and a Gurugram ATS system.<br><br>
@@ -1358,13 +1358,13 @@
   <div class="spacer"></div>
 
   <div class="callout-cyan">
-    <strong>Final Note from the Architect (Ridhi Jain):</strong> Every technical detail in this playbook reflects real engineering decisions I made in building KOM's live infrastructure. The architecture is not invented for the pitch — it is documented, tested, and live. Your job on that stage is to translate it with the clarity and conviction that only a great storyteller can deliver. That's why you are part of this team. Go win it.
+    <strong>Architect's Final Note:</strong> Every technical detail in this playbook reflects real engineering decisions I made in building KOM's live infrastructure. The architecture is not invented for the pitch — it is documented, tested, and live. Deliver every word with calm authority and absolute conviction. Everything is built, tested, and live. Go win it.
   </div>
 
   <div style="margin-top:24px; border-top:2px solid #0B0F19; padding-top:14px; display:flex; justify-content:space-between; align-items:center;">
     <div>
       <div style="font-family:'Space Grotesk',sans-serif; font-size:11pt; font-weight:800; color:#0B0F19;">Project KOM — Fund My Crazy 2026</div>
-      <div style="font-family:'JetBrains Mono',monospace; font-size:7.5pt; color:#64748B; margin-top:3px;">Ridhi Jain (Architect) · Adib Khan (Presenter) · Application #FMC-2026-KOM-8842</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:7.5pt; color:#64748B; margin-top:3px;">Ridhi Jain · Founder & Principal System Architect · Application #FMC-2026-KOM-8842</div>
     </div>
     <div style="text-align:right;">
       <div style="font-family:'JetBrains Mono',monospace; font-size:7.5pt; color:#FFB800; font-weight:700;">CLASSIFIED STAGE PREP</div>

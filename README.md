@@ -28,8 +28,6 @@ graph LR
 | Name | Role & Core Specialization | Profile |
 | :--- | :--- | :--- |
 | **Ridhi Jain** | **Founder & Principal System Architect**<br>Core system architecture, dual-agent differential privacy ingestion, spatial transit load allocation, and edge runtime design. | [GitHub Profile](https://github.com/ridhijain709) |
-| **Adib Khan** | **Collaborator, Co-Presenter & Strategic Storyteller**<br>National stage pitch lead, executive narrative structuring, Socratic commuter UX framing, and stakeholder translation. | [LinkedIn Profile ↗](https://www.linkedin.com/in/adibkhan0311/) |
-
 ---
 
 ## 🌐 Live Production Links & Interactive Sandboxes
@@ -42,7 +40,7 @@ graph LR
 | 📄 **4K Slide Presentation (PDF)** | High-resolution 3840×2160 print-ready PDF export of the executive deck. | [Download KOM_Presentation.pdf](KOM_Presentation.pdf) |
 | 🖥️ **4K PowerPoint Slide Deck (.pptx)** | Widescreen 16:9 PowerPoint presentation deck with vector typography and glassmorphic cards. | [Download KOM_Presentation.pptx](KOM_Presentation.pptx) |
 | 📋 **Executive Project Brief Dossier (PDF)** | Comprehensive 5-section project memorandum, technical specifications, and judge cross-examination squash manual. | [Download KOM_Project_Brief.pdf](KOM_Project_Brief.pdf) |
-| 🛡️ **Adib Khan's Stage Defense Playbook (PDF)** | Comprehensive 8-section battle manual: verbatim Q&A defenses for Varun Mayya, Tanmay Bhat, and Sahiba Bali, cold hook, unit economics proof, and stage choreography. | [Download Playbook (PDF)](KOM_Adib_Stage_Defense_Playbook.pdf) • [View Web Version →](KOM_Adib_Stage_Defense_Playbook.html) |
+| 🛡️ **Grand Finale Stage Defense Playbook (PDF)** | Comprehensive 8-section battle manual: verbatim Q&A defenses for Varun Mayya, Tanmay Bhat, and Sahiba Bali, cold hook, unit economics proof, and stage choreography. | [Download Playbook (PDF)](KOM_Stage_Defense_Playbook.pdf) • [View Web Version →](KOM_Stage_Defense_Playbook.html) |
 
 ---
 
@@ -163,7 +161,7 @@ Hosted live in the [Interactive Simulator](https://ridhijain709.github.io/kom-fu
 ### Slide 01: Title & The Shift
 * **Strategic Vision:** Moving from traffic loops to structural social mobility.
 * **Key Metrics:** ₹0 Municipal Discovery Capex • 18.2 Min Daily Transit Idle Dwell Time.
-* **Finalist Delegation:** Ridhi Jain (System Architect) & [Adib Khan](https://www.linkedin.com/in/adibkhan0311/) (Collaborator & Stage Presenter).
+* **Finalist Delegation:** Ridhi Jain (Founder & Principal System Architect).
 ![Slide 1 Preview](slides/exec_slide_1_4k.png)
 
 ---
@@ -200,7 +198,7 @@ Hosted live in the [Interactive Simulator](https://ridhijain709.github.io/kom-fu
 ---
 
 ## 🛡️ Judge Cross-Examination Defense Manual
-> ⚡ **Stage Presenter Resource:** [Download Adib Khan's Grand Finale Stage Defense Playbook (PDF)](KOM_Adib_Stage_Defense_Playbook.pdf) — Complete 8-page battle manual with verbatim scripts, one-liners, and minute-by-minute choreography for IIT Delhi.
+> ⚡ **Stage Presenter Resource:** [Download Grand Finale Stage Defense Playbook (PDF)](KOM_Stage_Defense_Playbook.pdf) — Complete 8-page battle manual with verbatim scripts, one-liners, and minute-by-minute choreography for IIT Delhi.
 
 
 | Judge Challenge | Vulnerability Addressed | Technical Defense Implemented |
@@ -236,8 +234,7 @@ Open your browser at:
 * **Status:** National Finalist Delegation (Top 50 Build-in-Public Phase)
 * **Team Delegation:**
   * **Ridhi Jain** — Founder & Principal System Architect
-  * **[Adib Khan](https://www.linkedin.com/in/adibkhan0311/)** — Collaborator, Co-Presenter & Strategic Storyteller
-* **Grand Finale Date:** October 1, 2026 @ IIT Delhi
+  * **Grand Finale Date:** October 1, 2026 @ IIT Delhi
 * **Judging Panel:** Tanmay Bhat, Sahiba Bali, Varun Mayya
 * **Prize Pool:** ₹1 Crore
 * **License:** MIT License — Open for Municipal & Academic Research
