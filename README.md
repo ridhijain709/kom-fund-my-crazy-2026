@@ -42,6 +42,7 @@ graph LR
 | 📄 **4K Slide Presentation (PDF)** | High-resolution 3840×2160 print-ready PDF export of the executive deck. | [Download KOM_Presentation.pdf](KOM_Presentation.pdf) |
 | 🖥️ **4K PowerPoint Slide Deck (.pptx)** | Widescreen 16:9 PowerPoint presentation deck with vector typography and glassmorphic cards. | [Download KOM_Presentation.pptx](KOM_Presentation.pptx) |
 | 📋 **Executive Project Brief Dossier (PDF)** | Comprehensive 5-section project memorandum, technical specifications, and judge cross-examination squash manual. | [Download KOM_Project_Brief.pdf](KOM_Project_Brief.pdf) |
+| 🛡️ **Adib Khan's Stage Defense Playbook (PDF)** | Comprehensive 8-section battle manual: verbatim Q&A defenses for Varun Mayya, Tanmay Bhat, and Sahiba Bali, cold hook, unit economics proof, and stage choreography. | [Download Playbook (PDF)](KOM_Adib_Stage_Defense_Playbook.pdf) • [View Web Version →](KOM_Adib_Stage_Defense_Playbook.html) |
 
 ---
 
@@ -199,6 +200,8 @@ Hosted live in the [Interactive Simulator](https://ridhijain709.github.io/kom-fu
 ---
 
 ## 🛡️ Judge Cross-Examination Defense Manual
+> ⚡ **Stage Presenter Resource:** [Download Adib Khan's Grand Finale Stage Defense Playbook (PDF)](KOM_Adib_Stage_Defense_Playbook.pdf) — Complete 8-page battle manual with verbatim scripts, one-liners, and minute-by-minute choreography for IIT Delhi.
+
 
 | Judge Challenge | Vulnerability Addressed | Technical Defense Implemented |
 | :--- | :--- | :--- |
