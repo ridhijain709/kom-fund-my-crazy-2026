@@ -3,29 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KOM - Napkin AI Visual Master Deck | Fund My Crazy 2026</title>
+  <title>KOM - Executive Director Presentation Deck | Fund My Crazy 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090D16;
-      --card: #111827;
+      --bg: #0B0F19;
+      --card-bg: #111827;
       --card-border: #1F2937;
-      --cyan: #00F5D4;
       --amber: #FFB800;
-      --violet: #8B5CF6;
-      --emerald: #10B981;
-      --rose: #F43F5E;
-      --text: #F9FAFB;
-      --text-muted: #9CA3AF;
+      --amber-glow: rgba(255, 184, 0, 0.25);
+      --cyan: #00F5D4;
+      --text: #FFFFFF;
+      --text-muted: #94A3B8;
       --display: 'Space Grotesk', sans-serif;
       --mono: 'JetBrains Mono', monospace;
       --body: 'Inter', sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -37,98 +35,81 @@
       flex-direction: column;
       justify-content: space-between;
       background-image: 
-        radial-gradient(circle at 15% 15%, rgba(0, 245, 212, 0.05) 0%, transparent 45%),
-        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.05) 0%, transparent 45%),
-        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+        linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 40px 40px, 40px 40px;
     }
 
-    /* Executive Top Bar */
+    /* Minimalist Executive Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 3.5rem;
+      padding: 1.1rem 4rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(9, 13, 22, 0.9);
-      backdrop-filter: blur(20px);
+      background: rgba(11, 15, 25, 0.95);
+      backdrop-filter: blur(12px);
       z-index: 50;
     }
-    .brand-box {
+    .header-left {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.2rem;
     }
-    .brand-title {
+    .brand-logo {
       font-family: var(--display);
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: -0.02em;
     }
-    .tag-napkin {
-      background: rgba(255, 184, 0, 0.15);
+    .amber-tag {
+      background: rgba(255, 184, 0, 0.12);
       border: 1px solid var(--amber);
       color: var(--amber);
       font-family: var(--mono);
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 0.2rem 0.6rem;
+      padding: 0.25rem 0.65rem;
       border-radius: 4px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
-    .nav-actions {
+    .nav-controls {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-    .btn-sim {
-      background: var(--cyan);
-      color: #000;
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      font-weight: 800;
-      padding: 0.45rem 1.1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s;
-    }
-    .btn-sim:hover {
-      box-shadow: 0 0 20px rgba(0, 245, 212, 0.5);
-      transform: translateY(-1px);
-    }
-    .btn-ctrl {
-      background: rgba(255, 255, 255, 0.05);
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #FFF;
-      padding: 0.4rem 0.85rem;
+      padding: 0.45rem 1rem;
       border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
       font-family: var(--mono);
+      font-size: 0.8rem;
+      cursor: pointer;
       transition: all 0.2s;
     }
-    .btn-ctrl:hover {
+    .btn-nav:hover {
       background: rgba(255, 255, 255, 0.15);
-      border-color: var(--cyan);
+      border-color: var(--amber);
+      color: var(--amber);
     }
 
-    /* Presentation Canvas */
+    /* Main Slide Stage */
     main {
       flex: 1;
       position: relative;
       width: 100%;
-      height: calc(100vh - 130px);
+      height: calc(100vh - 140px);
     }
     .slide {
       position: absolute;
       inset: 0;
-      padding: 2rem 4rem;
+      padding: 2.5rem 5rem;
       opacity: 0;
       pointer-events: none;
-      transform: scale(0.97);
+      transform: scale(0.98);
       transition: opacity 0.35s ease, transform 0.35s ease;
       display: flex;
       flex-direction: column;
@@ -140,415 +121,486 @@
       transform: scale(1);
     }
 
-    /* Slide Headers */
+    /* Editorial Typography */
     .slide-eyebrow {
       font-family: var(--mono);
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--amber);
-      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 0.3rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
     }
     .slide-headline {
       font-family: var(--display);
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 1.4rem;
-      letter-spacing: -0.02em;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.8rem;
     }
 
-    /* Napkin AI Layout Containers */
-    .napkin-grid-2col {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 2rem;
-      height: calc(100% - 90px);
-    }
-    .napkin-grid-3col {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.8rem;
-      height: calc(100% - 90px);
-    }
-
-    /* Napkin Bento Card */
-    .napkin-card {
-      background: var(--card);
+    /* Napkin Card Containers */
+    .napkin-box {
+      background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 1.5rem;
+      padding: 1.6rem;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
       position: relative;
     }
-    .napkin-card.glow-cyan {
-      border-color: rgba(0, 245, 212, 0.4);
-      box-shadow: 0 10px 30px rgba(0, 245, 212, 0.08);
-    }
-    .napkin-card.glow-amber {
-      border-color: rgba(255, 184, 0, 0.4);
-      box-shadow: 0 10px 30px rgba(255, 184, 0, 0.08);
+    .napkin-box.amber-glow {
+      border-color: rgba(255, 184, 0, 0.45);
+      box-shadow: 0 12px 32px var(--amber-glow);
     }
 
-    .card-heading {
+    .box-title {
       font-family: var(--display);
       font-size: 1.15rem;
       font-weight: 700;
       color: #FFF;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
-    .card-desc {
-      font-size: 0.9rem;
+    .box-body {
+      font-size: 0.92rem;
       line-height: 1.5;
       color: var(--text-muted);
     }
 
-    /* Napkin Visual SVG Diagram Styles */
-    .diagram-container {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px dashed rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      padding: 1rem;
+    /* Metric Display */
+    .metric-value {
+      font-family: var(--display);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .metric-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFF;
+    }
+    .metric-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Diagram Stage */
+    .diagram-stage {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100%;
-      overflow: hidden;
     }
-    svg.napkin-svg {
+    svg.napkin-schema {
       width: 100%;
       height: 100%;
     }
 
-    /* Footer Controls */
+    /* Bottom Telemetry Bar */
+    .telemetry-bar {
+      margin-top: auto;
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 0.8rem 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
     footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.85rem 3.5rem;
+      padding: 1rem 4rem;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(9, 13, 22, 0.95);
+      background: rgba(11, 15, 25, 0.95);
       font-family: var(--mono);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
     }
-    .dots {
+    .stepper {
       display: flex;
       gap: 0.6rem;
     }
-    .dot {
-      width: 28px;
-      height: 4px;
+    .step-pill {
+      width: 32px;
+      height: 5px;
       background: rgba(255, 255, 255, 0.15);
-      border-radius: 2px;
+      border-radius: 3px;
       cursor: pointer;
       transition: all 0.3s;
     }
-    .dot.active {
-      width: 48px;
-      background: var(--cyan);
-      box-shadow: 0 0 10px var(--cyan);
+    .step-pill.active {
+      width: 50px;
+      background: var(--amber);
+      box-shadow: 0 0 12px var(--amber);
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="brand-box">
-      <span class="brand-title">KINETIC OPPORTUNITY MESH</span>
-      <span class="tag-napkin">NAPKIN AI VISUAL ARCHITECTURE</span>
+    <div class="header-left">
+      <span class="brand-logo">PROJECT KOM</span>
+      <span class="amber-tag">EXECUTIVE DIRECTOR SUITE</span>
     </div>
-    <div class="nav-actions">
-      <a href="kom_interactive_simulator.html" target="_blank" class="btn-sim">
-        ⚡ LAUNCH WORKING ENGINE SIMULATOR
-      </a>
-      <button class="btn-ctrl" onclick="prev()">PREV [←]</button>
-      <button class="btn-ctrl" onclick="next()">NEXT [→]</button>
+    <div class="nav-controls">
+      <button class="btn-nav" onclick="prev()">← PREV</button>
+      <button class="btn-nav" onclick="next()">NEXT →</button>
     </div>
   </header>
 
   <main>
-    <!-- SLIDE 1: THE SPATIAL FUNNEL (Napkin AI Funnel Diagram) -->
-    <section class="slide active" id="s0">
-      <div class="slide-eyebrow">01. THE MACRO PARADOX</div>
-      <h1 class="slide-headline">The Spatial Funnel: How Ecosystem Apartheid Strangles Latent Talent</h1>
-      
-      <div class="napkin-grid-2col">
-        <!-- SVG Visual Funnel Diagram -->
-        <div class="diagram-container">
-          <svg class="napkin-svg" viewBox="0 0 600 420">
-            <!-- Funnel Top: 12.4M Tier-3 Students -->
-            <polygon points="40,30 560,30 420,130 180,130" fill="rgba(56, 189, 248, 0.12)" stroke="#38BDF8" stroke-width="2"/>
-            <text x="300" y="70" fill="#FFF" font-family="'Space Grotesk'" font-weight="700" font-size="18" text-anchor="middle">12.4M UNDERGRADUATES IN TIER-2/3 COLLEGES</text>
-            <text x="300" y="95" fill="#94A3B8" font-family="'Inter'" font-size="13" text-anchor="middle">Equal cognitive capacity • Severe network &amp; geographic isolation</text>
+    <!-- ==================== SLIDE 1: TITLE & THE SHIFT ==================== -->
+    <section class="slide active" id="slide-0">
+      <div class="slide-eyebrow">SLIDE 01 • STRATEGIC VISION &amp; THE HOOK</div>
+      <h1 class="slide-headline">Re-Engineering the Smart City: The Kinetic Opportunity Mesh</h1>
 
-            <!-- Funnel Middle: The Pedigree Filter Barrier -->
-            <polygon points="180,140 420,140 350,230 250,230" fill="rgba(244, 63, 94, 0.15)" stroke="#F43F5E" stroke-width="2" stroke-dasharray="4"/>
-            <text x="300" y="175" fill="#F43F5E" font-family="'JetBrains Mono'" font-weight="700" font-size="15" text-anchor="middle">THE ATS PEDIGREE CHOKEPOINT</text>
-            <text x="300" y="200" fill="#FDA4AF" font-family="'Inter'" font-size="12" text-anchor="middle">88% of high-yield pipelines trapped in &lt;2.4% urban area</text>
+      <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 2.2rem; height: calc(100% - 110px);">
+        <!-- Centered Hero Visual -->
+        <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--amber); position: relative; background: #000; box-shadow: 0 16px 40px var(--amber-glow);">
+          <img src=".user_uploaded/media_1789554719093.jpg" alt="KOM Node Architecture" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; bottom: 12px; left: 12px; background: rgba(11, 15, 25, 0.9); border: 1px solid var(--amber); color: var(--amber); padding: 0.4rem 0.8rem; border-radius: 4px; font-family: var(--mono); font-size: 0.75rem; font-weight: 700;">
+            THE KOM NODE • RETROFITTED TRANSIT SHELTER CONCEPT
+          </div>
+        </div>
 
-            <!-- Arrow Bridge to KOM Mesh -->
-            <path d="M 300 240 L 300 290" stroke="#00F5D4" stroke-width="4" marker-end="url(#arrow)"/>
-            <circle cx="300" cy="265" r="14" fill="#00F5D4"/>
-            <text x="300" y="270" fill="#000" font-family="'JetBrains Mono'" font-weight="800" font-size="12" text-anchor="middle">KOM</text>
+        <!-- 3 High-Impact Callouts -->
+        <div style="display: flex; flex-direction: column; gap: 1.1rem; justify-content: center;">
+          <div class="napkin-box amber-glow">
+            <div class="metric-value">₹0</div>
+            <div class="metric-label">Municipal Career Discovery Capex</div>
+            <div class="metric-desc">Zero taxpayer burden. Funded entirely via corporate talent acquisition budgets and CSR innovation quotas.</div>
+          </div>
 
-            <!-- Funnel Bottom: Meritocratic Bypass -->
-            <rect x="100" y="300" width="400" height="90" rx="10" fill="rgba(0, 245, 212, 0.1)" stroke="#00F5D4" stroke-width="2"/>
-            <text x="300" y="335" fill="#00F5D4" font-family="'Space Grotesk'" font-weight="700" font-size="17" text-anchor="middle">KINETIC AMBIENT TRANSIT MESH</text>
-            <text x="300" y="362" fill="#E2E8F0" font-family="'Inter'" font-size="13" text-anchor="middle">Bypasses College Tier • Evaluates Empirical Problem-Solving</text>
+          <div class="napkin-box">
+            <div class="metric-value" style="color: #FFF;">18.2 Min</div>
+            <div class="metric-label">Daily Transit Idle Dwell Time</div>
+            <div class="metric-desc">Monetizing unproductive, sensory-overloaded waiting time into structured, real-world corporate problem solving.</div>
+          </div>
+
+          <div class="napkin-box" style="border-color: rgba(255, 184, 0, 0.4);">
+            <div class="box-title" style="color: var(--amber);">THE PARADIGM SHIFT</div>
+            <div class="box-body" style="color: #FFF; font-weight: 500;">
+              "Moving municipal smart city focus away from physical plumbing (traffic loops, water grids) and toward routing human potential."
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="telemetry-bar">
+        <span>CORE THESIS: "Pedigree is not an index of intellect; pedigree is a geography of proximity."</span>
+        <span style="color: var(--amber);">[APPLICATION #FMC-2026-KOM-8842]</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 2: THE REALITY OF ECOSYSTEM APARTHEID ==================== -->
+    <section class="slide" id="slide-1">
+      <div class="slide-eyebrow">SLIDE 02 • THE CRISIS OF EXCLUSION</div>
+      <h1 class="slide-headline">The Reality of Ecosystem Apartheid: Spatial Gatekeeping</h1>
+
+      <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.2rem; height: calc(100% - 110px);">
+        <!-- Napkin AI Funnel Infographic (SVG) -->
+        <div class="diagram-stage">
+          <svg class="napkin-schema" viewBox="0 0 620 400">
+            <!-- Top Band: Peripheral Undergrads -->
+            <polygon points="40,25 580,25 450,120 170,120" fill="rgba(56, 189, 248, 0.12)" stroke="#38BDF8" stroke-width="2"/>
+            <text x="310" y="65" fill="#FFFFFF" font-family="'Space Grotesk'" font-weight="700" font-size="18" text-anchor="middle">12.4M REGIONAL UNDERGRADUATE TALENT POOL</text>
+            <text x="310" y="92" fill="#94A3B8" font-family="'Inter'" font-size="13" text-anchor="middle">Identical cognitive drive • Zero casual mentorship • Structural isolation</text>
+
+            <!-- Chokepoint: The 2.4% Spatial Trap -->
+            <polygon points="170,130 450,130 370,220 250,220" fill="rgba(244, 63, 94, 0.15)" stroke="#F43F5E" stroke-width="2" stroke-dasharray="4"/>
+            <text x="310" y="165" fill="#F43F5E" font-family="'JetBrains Mono'" font-weight="700" font-size="14" text-anchor="middle">THE ATS PEDIGREE CHOKEPOINT</text>
+            <text x="310" y="190" fill="#FDA4AF" font-family="'Inter'" font-weight="600" font-size="13" text-anchor="middle">88% of High-Yield Career Loops Inside 2.4% Urban Footprint</text>
+
+            <!-- KOM Bypass Route -->
+            <path d="M 310 230 L 310 280" stroke="#FFB800" stroke-width="4"/>
+            <circle cx="310" cy="255" r="14" fill="#FFB800"/>
+            <text x="310" y="260" fill="#000" font-family="'JetBrains Mono'" font-weight="800" font-size="11" text-anchor="middle">KOM</text>
+
+            <!-- Bottom: Merit Output -->
+            <rect x="100" y="295" width="420" height="85" rx="8" fill="rgba(255, 184, 0, 0.1)" stroke="#FFB800" stroke-width="2"/>
+            <text x="310" y="330" fill="#FFB800" font-family="'Space Grotesk'" font-weight="700" font-size="17" text-anchor="middle">DECENTRALIZED TRANSIT MERIT MESH</text>
+            <text x="310" y="355" fill="#E2E8F0" font-family="'Inter'" font-size="13" text-anchor="middle">Treats Career Exposure as a Fluid Municipal Public Utility</text>
           </svg>
         </div>
 
-        <!-- Bento Explainer Cards -->
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div class="napkin-card glow-amber">
-            <div class="card-heading" style="color: var(--amber);">₹0 MUNICIPAL CAREER CAPEX</div>
-            <div class="card-desc">Cities build physical roads to transport human bodies, while allocating zero capital to build infrastructure for social mobility.</div>
+        <!-- Explainer Cards -->
+        <div style="display: flex; flex-direction: column; gap: 1rem; justify-content: center;">
+          <div class="napkin-box">
+            <div class="box-title" style="color: var(--amber);">88% IN 2.4% OF LAND AREA</div>
+            <div class="box-body">High-growth enterprise hiring pipelines are physically clustered in a handful of elite institutional enclaves, leaving non-metro quadrants in career starvation.</div>
           </div>
-          <div class="napkin-card glow-cyan">
-            <div class="card-heading" style="color: var(--cyan);">18.2 MIN DAILY TRANSIT IDLE DWELL</div>
-            <div class="card-desc">Students commute in sensory-overloaded suburban bus routes daily. KOM monetizes this idle wait into structured, high-agency career problem solving.</div>
+
+          <div class="napkin-box">
+            <div class="box-title" style="color: #FFF;">THE INFORMATION FALLACY</div>
+            <div class="box-body">The internet democratized raw data, but it did not democratize networks, corporate vernacular, or causal executive exposure. Pedigree bias remains the gatekeeper.</div>
           </div>
-          <div class="napkin-card">
-            <div class="card-heading" style="color: #FFF;">THE CONSULTING INVERSION</div>
-            <div class="card-desc">"Pedigree is not an index of intellect; pedigree is a geography of proximity." The bus stop is our physical moat.</div>
+
+          <div class="napkin-box" style="border-color: var(--card-border);">
+            <div class="box-title" style="color: #94A3B8;">THE EXECUTION REMEDY</div>
+            <div class="box-body">KOM brings the boardroom to the bus stop—converting physical commuting hubs into real-world business case laboratories.</div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- SLIDE 2: THE PHYSICAL BLUEPRINT (Napkin AI Isometric Cutaway) -->
-    <section class="slide" id="s1">
-      <div class="slide-eyebrow">02. PHYSICAL INFRASTRUCTURE</div>
-      <h1 class="slide-headline">The Hardware Fortress: Anatomy of the Retrofitted Transit Node</h1>
-      
-      <div class="napkin-grid-2col">
-        <!-- Visual Cutaway Image Container -->
-        <div style="border-radius: 12px; overflow: hidden; border: 1px solid var(--cyan); position: relative;">
-          <img src=".user_uploaded/media_1789554719093.jpg" alt="KOM Node Render" style="width: 100%; height: 100%; object-fit: cover;">
-          <div style="position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.85); border: 1px solid var(--cyan); padding: 0.4rem 0.8rem; border-radius: 4px; font-family: var(--mono); font-size: 0.75rem; color: var(--cyan);">
-            PROVEN URBAN DURABILITY: IK10 POLYCARBONATE CORE
-          </div>
-        </div>
-
-        <!-- Napkin Component Matrix -->
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div class="napkin-card">
-            <div class="card-heading" style="color: var(--cyan);">[A] Bistable E-Paper Canvas</div>
-            <div class="card-desc">Zero internal heat emission. Operates passively under 48°C direct sunlight without glare. Consumes &lt;12W peak power (0W when static).</div>
-          </div>
-          <div class="napkin-card">
-            <div class="card-heading" style="color: var(--amber);">[B] Zero Salvage Scrap Value</div>
-            <div class="card-desc">Encased behind 12mm ballistic IK10 polycarbonate. No copper scrap, no rare-earth batteries, making street vandalism economically irrational.</div>
-          </div>
-          <div class="napkin-card">
-            <div class="card-heading" style="color: var(--emerald);">[C] Sub-Second Mobile Handoff (&lt;1.2s)</div>
-            <div class="card-desc">Sidewalk shelter displays the provocative 2-second hook; student scans dynamic QR to run the 20-minute voice workspace on the seated bus ride.</div>
-          </div>
-        </div>
+      <div class="telemetry-bar">
+        <span>SPATIAL AUDIT: 12.4M Talented Undergraduates Blocked by Automated Pedigree ATS Filters Annually.</span>
+        <span style="color: var(--amber);">[SYSTEMIC MISALLOCATION DETECTED]</span>
       </div>
     </section>
 
-    <!-- SLIDE 3: THE COGNITIVE CIRCUIT (Napkin AI Pipeline Circuit Diagram) -->
-    <section class="slide" id="s2">
-      <div class="slide-eyebrow">03. ALGORITHMIC REASONING PIPELINE</div>
-      <h1 class="slide-headline">The Gemini Scaffolding Circuit: Corporate Exhaust to Blind Merit</h1>
-      
-      <div class="napkin-grid-2col">
-        <!-- SVG Circuit Diagram -->
-        <div class="diagram-container">
-          <svg class="napkin-svg" viewBox="0 0 600 420">
-            <!-- Node 1 -->
-            <rect x="40" y="50" width="220" height="90" rx="8" fill="rgba(56, 189, 248, 0.15)" stroke="#38BDF8" stroke-width="2"/>
-            <text x="150" y="85" fill="#38BDF8" font-family="'JetBrains Mono'" font-weight="700" font-size="13" text-anchor="middle">01. CORPORATE EXHAUST</text>
-            <text x="150" y="112" fill="#E2E8F0" font-family="'Inter'" font-size="12" text-anchor="middle">Jira edge cases &amp; logistics puzzles</text>
+    <!-- ==================== SLIDE 3: SYSTEM ARCHITECTURE ==================== -->
+    <section class="slide" id="slide-2">
+      <div class="slide-eyebrow">SLIDE 03 • DEEP TECH PIPELINE</div>
+      <h1 class="slide-headline">System Architecture: The 3-Step Cognitive Ingestion Engine</h1>
+
+      <div style="display: flex; flex-direction: column; gap: 1.5rem; height: calc(100% - 110px); justify-content: center;">
+        <!-- Napkin AI 3-Step Pipeline (SVG) -->
+        <div class="diagram-stage" style="height: 280px;">
+          <svg class="napkin-schema" viewBox="0 0 900 240">
+            <!-- Step 1 Node -->
+            <rect x="30" y="40" width="250" height="150" rx="10" fill="#111827" stroke="#38BDF8" stroke-width="2"/>
+            <rect x="50" y="60" width="90" height="26" rx="4" fill="#0369A1"/>
+            <text x="95" y="77" fill="#FFF" font-family="'JetBrains Mono'" font-weight="700" font-size="11" text-anchor="middle">STEP 01</text>
+            <text x="50" y="115" fill="#FFF" font-family="'Space Grotesk'" font-weight="700" font-size="16">Corporate Exhaust Hub</text>
+            <text x="50" y="145" fill="#94A3B8" font-family="'Inter'" font-size="12">
+              <tspan x="50" dy="0">• Unfilled data briefs</tspan>
+              <tspan x="50" dy="20">• Archived logistics puzzles</tspan>
+              <tspan x="50" dy="20">• Non-proprietary case studies</tspan>
+            </text>
 
             <!-- Connector 1 to 2 -->
-            <line x1="260" y1="95" x2="340" y2="95" stroke="#FFF" stroke-width="2" stroke-dasharray="4"/>
+            <line x1="280" y1="115" x2="350" y2="115" stroke="#FFB800" stroke-width="3" stroke-dasharray="6"/>
+            <polygon points="350,115 340,110 340,120" fill="#FFB800"/>
 
-            <!-- Node 2 -->
-            <rect x="340" y="50" width="220" height="90" rx="8" fill="rgba(255, 184, 0, 0.15)" stroke="#FFB800" stroke-width="2"/>
-            <text x="450" y="85" fill="#FFB800" font-family="'JetBrains Mono'" font-weight="700" font-size="13" text-anchor="middle">02. GEMINI DE-JARGONIZER</text>
-            <text x="450" y="112" fill="#E2E8F0" font-family="'Inter'" font-size="12" text-anchor="middle">Strips jargon into Micro-Briefs</text>
+            <!-- Step 2 Node -->
+            <rect x="350" y="40" width="250" height="150" rx="10" fill="#111827" stroke="#FFB800" stroke-width="2"/>
+            <rect x="370" y="60" width="90" height="26" rx="4" fill="#B45309"/>
+            <text x="415" y="77" fill="#FFF" font-family="'JetBrains Mono'" font-weight="700" font-size="11" text-anchor="middle">STEP 02</text>
+            <text x="370" y="115" fill="#FFF" font-family="'Space Grotesk'" font-weight="700" font-size="16">Gemini Jargon Stripper</text>
+            <text x="370" y="145" fill="#94A3B8" font-family="'Inter'" font-size="12">
+              <tspan x="370" dy="0">• Strips elitist corporate jargon</tspan>
+              <tspan x="370" dy="20">• Fragments into Micro-Briefs</tspan>
+              <tspan x="370" dy="20">• Air-gapped differential privacy</tspan>
+            </text>
 
-            <!-- Connector Down -->
-            <line x1="450" y1="140" x2="450" y2="210" stroke="#FFF" stroke-width="2" stroke-dasharray="4"/>
+            <!-- Connector 2 to 3 -->
+            <line x1="600" y1="115" x2="670" y2="115" stroke="#FFB800" stroke-width="3" stroke-dasharray="6"/>
+            <polygon points="670,115 660,110 660,120" fill="#FFB800"/>
 
-            <!-- Node 3 -->
-            <rect x="340" y="210" width="220" height="90" rx="8" fill="rgba(16, 185, 129, 0.15)" stroke="#10B981" stroke-width="2"/>
-            <text x="450" y="245" fill="#10B981" font-family="'JetBrains Mono'" font-weight="700" font-size="13" text-anchor="middle">03. MULTIMODAL COACH</text>
-            <text x="450" y="272" fill="#E2E8F0" font-family="'Inter'" font-size="12" text-anchor="middle">45s voice notes in Hindi/English</text>
-
-            <!-- Connector Left -->
-            <line x1="340" y1="255" x2="260" y2="255" stroke="#FFF" stroke-width="2" stroke-dasharray="4"/>
-
-            <!-- Node 4 -->
-            <rect x="40" y="210" width="220" height="90" rx="8" fill="rgba(139, 92, 246, 0.15)" stroke="#8B5CF6" stroke-width="2"/>
-            <text x="150" y="245" fill="#8B5CF6" font-family="'JetBrains Mono'" font-weight="700" font-size="13" text-anchor="middle">04. BLIND ATS DOSSIER</text>
-            <text x="150" y="272" fill="#E2E8F0" font-family="'Inter'" font-size="12" text-anchor="middle">100% Pedigree Redacted</text>
-
-            <!-- Interactive Demo Launcher Banner inside SVG -->
-            <rect x="40" y="330" width="520" height="60" rx="6" fill="#00F5D4"/>
-            <text x="300" y="366" fill="#000" font-family="'Space Grotesk'" font-weight="800" font-size="16" text-anchor="middle">
-              ⚡ CLICK "LAUNCH WORKING ENGINE SIMULATOR" TO TEST LIVE
+            <!-- Step 3 Node -->
+            <rect x="670" y="40" width="200" height="150" rx="10" fill="#111827" stroke="#10B981" stroke-width="2"/>
+            <rect x="690" y="60" width="90" height="26" rx="4" fill="#047857"/>
+            <text x="735" y="77" fill="#FFF" font-family="'JetBrains Mono'" font-weight="700" font-size="11" text-anchor="middle">STEP 03</text>
+            <text x="690" y="115" fill="#FFF" font-family="'Space Grotesk'" font-weight="700" font-size="16">Street E-Paper Nodes</text>
+            <text x="690" y="145" fill="#94A3B8" font-family="'Inter'" font-size="12">
+              <tspan x="690" dy="0">• Low-power bistable e-paper</tspan>
+              <tspan x="690" dy="20">• Sub-second QR handoff</tspan>
+              <tspan x="690" dy="20">• IK10 shatterproof glass</tspan>
             </text>
           </svg>
         </div>
 
-        <!-- Feature Points -->
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div class="napkin-card glow-cyan">
-            <div class="card-heading" style="color: var(--cyan);">Air-Gapped Differential Privacy</div>
-            <div class="card-desc">Zero proprietary enterprise data is ever exposed publicly. Gemini abstracts raw issues into normalized, synthetic problem archetypes.</div>
+        <!-- Bottom Feature Cards -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+          <div class="napkin-box">
+            <div class="box-title" style="color: var(--amber);">Air-Gapped Ingestion</div>
+            <div class="box-body">Enterprise partners upload sanitized operational challenges. Raw databases and proprietary intellectual property never touch the public network.</div>
           </div>
-          <div class="napkin-card glow-amber">
-            <div class="card-heading" style="color: var(--amber);">Dual-Agent Adversarial Scoring</div>
-            <div class="card-desc">Eliminates hallucinations and prompt injections. A Sanitizer Agent checks syntax; a Deterministic Evaluator scores against strict enterprise rubrics.</div>
+          <div class="napkin-box">
+            <div class="box-title" style="color: #FFF;">Gemini Socratic Engine</div>
+            <div class="box-body">Acts as an invisible McKinsey Engagement Manager, deconstructing complex briefs into intuitive problems and coaching student logical frameworks in real-time.</div>
           </div>
-          <div class="napkin-card" style="border-color: var(--emerald);">
-            <div class="card-heading" style="color: var(--emerald);">Direct ATS Webhook Integration</div>
-            <div class="card-desc">Pre-packages verified candidate audio summaries into Workday, Greenhouse, and Taleo recruiter dashboards automatically.</div>
+          <div class="napkin-box">
+            <div class="box-title" style="color: var(--cyan);">Solid-State Transit Nodes</div>
+            <div class="box-body">Consumes zero continuous wattage. Completely solar-compatible, resistant to 48°C extreme ambient heat, and completely zero scrap-salvage value.</div>
           </div>
         </div>
       </div>
+
+      <div class="telemetry-bar">
+        <span>SECURITY PROTOCOL: Differential Privacy Sanitization • Latency &lt;380ms • Dual-Agent Adversarial Verification</span>
+        <span style="color: var(--amber);">[ENGINE STATUS: OPERATIONAL]</span>
+      </div>
     </section>
 
-    <!-- SLIDE 4: THE ARBITRAGE SCALE (Napkin AI Balance Scale) -->
-    <section class="slide" id="s3">
-      <div class="slide-eyebrow">04. ENTERPRISE UNIT ECONOMICS</div>
-      <h1 class="slide-headline">The Arbitrage Scale: 92.3% Cost Reduction via Empirical Proof-of-Work</h1>
-      
-      <div class="napkin-grid-2col">
-        <!-- SVG Balance Scale Diagram -->
-        <div class="diagram-container">
-          <svg class="napkin-svg" viewBox="0 0 600 420">
-            <!-- Scale Stand -->
-            <line x1="300" y1="80" x2="300" y2="350" stroke="#475569" stroke-width="8"/>
-            <polygon points="260,350 340,350 360,380 240,380" fill="#334155"/>
-            <!-- Fulcrum -->
-            <polygon points="285,110 315,110 300,90" fill="#94A3B8"/>
+    <!-- ==================== SLIDE 4: BLIND MERIT ARBITRAGE ==================== -->
+    <section class="slide" id="slide-3">
+      <div class="slide-eyebrow">SLIDE 04 • USER EXPERIENCE &amp; RECRUITMENT ROUTING</div>
+      <h1 class="slide-headline">Blind Merit Arbitrage: 100% Anonymized Evaluation Grid</h1>
+
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.2rem; height: calc(100% - 110px);">
+        <!-- Technical Schematic of Gemini Interface (SVG) -->
+        <div class="diagram-stage">
+          <svg class="napkin-schema" viewBox="0 0 600 380">
+            <!-- Outer Window Frame -->
+            <rect x="20" y="20" width="560" height="340" rx="10" fill="#0A0E17" stroke="#1F2937" stroke-width="2"/>
             
-            <!-- Scale Beam (Tilted heavily toward KOM savings) -->
-            <line x1="100" y1="160" x2="500" y2="80" stroke="#00F5D4" stroke-width="6"/>
+            <!-- Header Bar -->
+            <rect x="20" y="20" width="560" height="40" rx="10" fill="#111827"/>
+            <circle cx="45" cy="40" r="5" fill="#EF4444"/>
+            <circle cx="65" cy="40" r="5" fill="#F59E0B"/>
+            <circle cx="85" cy="40" r="5" fill="#10B981"/>
+            <text x="300" y="45" fill="#94A3B8" font-family="'JetBrains Mono'" font-size="11" text-anchor="middle">GEMINI EVALUATION CONSOLE • SESSION #TK-8842</text>
 
-            <!-- Left Pan (Heavy Traditional Campus Recruitment) -->
-            <line x1="100" y1="160" x2="100" y2="210" stroke="#64748B" stroke-width="2"/>
-            <rect x="20" y="210" width="160" height="120" rx="8" fill="rgba(244, 63, 94, 0.15)" stroke="#F43F5E" stroke-width="2"/>
-            <text x="100" y="240" fill="#F43F5E" font-family="'Space Grotesk'" font-weight="700" font-size="14" text-anchor="middle">CAMPUS DRIVES</text>
-            <text x="100" y="275" fill="#FFF" font-family="'Space Grotesk'" font-weight="800" font-size="22" text-anchor="middle">₹1,85,000</text>
-            <text x="100" y="305" fill="#FDA4AF" font-family="'Inter'" font-size="11" text-anchor="middle">Cost / Hire • 60% Churn</text>
+            <!-- Candidate Redacted Box -->
+            <rect x="45" y="80" width="510" height="75" rx="6" fill="#111827" stroke="#F59E0B" stroke-dasharray="3"/>
+            <text x="65" y="108" fill="#F59E0B" font-family="'JetBrains Mono'" font-weight="700" font-size="13">CANDIDATE PROFILE: [100% ANONYMIZED EVALUATION GRID]</text>
+            <text x="65" y="135" fill="#64748B" font-family="'JetBrains Mono'" font-size="11">NAME: <tspan fill="#F59E0B">[REDACTED]</tspan>  |  COLLEGE: <tspan fill="#F59E0B">[TIER-3 REDACTED]</tspan>  |  CITY: <tspan fill="#F59E0B">[MASKED]</tspan></text>
 
-            <!-- Right Pan (Lightweight KOM Arbitrage) -->
-            <line x1="500" y1="80" x2="500" y2="130" stroke="#64748B" stroke-width="2"/>
-            <rect x="420" y="130" width="160" height="120" rx="8" fill="rgba(16, 185, 129, 0.15)" stroke="#10B981" stroke-width="2"/>
-            <text x="500" y="160" fill="#10B981" font-family="'Space Grotesk'" font-weight="700" font-size="14" text-anchor="middle">KOM PIPELINE</text>
-            <text x="500" y="195" fill="#00F5D4" font-family="'Space Grotesk'" font-weight="800" font-size="22" text-anchor="middle">₹14,200</text>
-            <text x="500" y="225" fill="#A7F3D0" font-family="'Inter'" font-size="11" text-anchor="middle">92.3% Cost Savings</text>
+            <!-- Spoken Framework Analysis -->
+            <rect x="45" y="170" width="510" height="110" rx="6" fill="#111827" stroke="#1F2937"/>
+            <text x="65" y="198" fill="#FFF" font-family="'Space Grotesk'" font-weight="700" font-size="14">Spoken Audio Framework Breakdown</text>
+            
+            <rect x="65" y="215" width="470" height="8" rx="4" fill="#1F2937"/>
+            <rect x="65" y="215" width="440" height="8" rx="4" fill="#00F5D4"/>
+            <text x="65" y="242" fill="#94A3B8" font-family="'Inter'" font-size="11">MECE Problem Decomposition Score: <tspan fill="#00F5D4" font-weight="700">94/100 (Top 2.8% National)</tspan></text>
+            <text x="65" y="262" fill="#94A3B8" font-family="'Inter'" font-size="11">Identified Core Constraint: <tspan fill="#FFF" font-weight="600">Cold-Chain Battery Longevity &amp; Decentralized Triage</tspan></text>
+
+            <!-- Routing Destination Badge -->
+            <rect x="45" y="295" width="510" height="45" rx="6" fill="rgba(16, 185, 129, 0.12)" stroke="#10B981"/>
+            <text x="300" y="323" fill="#10B981" font-family="'JetBrains Mono'" font-weight="700" font-size="12" text-anchor="middle">
+              ✓ DIRECT ATS ROUTING CONFIRMED (WORKDAY / GREENHOUSE RECRUITER DESK)
+            </text>
           </svg>
         </div>
 
-        <!-- 3 Stakeholder Columns -->
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-          <div class="napkin-card">
-            <div class="card-heading" style="color: var(--amber);">Municipal Concession (₹0 Public Capex)</div>
-            <div class="card-desc">Operates via standard commercial advertising concession rights. Upgraded smart bus shelters funded entirely by corporate hiring and CSR budgets.</div>
+        <!-- Strategy Details -->
+        <div style="display: flex; flex-direction: column; gap: 1rem; justify-content: center;">
+          <div class="napkin-box amber-glow">
+            <div class="box-title" style="color: var(--amber);">Asynchronous User Loop</div>
+            <div class="box-body">Commuters scan the node QR code in &lt;1.2s. They review the brief on the ride, structure frameworks at their own pace, and submit voice notes from the quiet of home or college. Zero commute audio friction.</div>
           </div>
-          <div class="napkin-card">
-            <div class="card-heading" style="color: var(--emerald);">2.4x Higher Employee Retention</div>
-            <div class="card-desc">Non-pedigree regional problem-solvers who prove their analytical grit in real cases show substantially lower 24-month turnover than pedigree peers.</div>
+
+          <div class="napkin-box">
+            <div class="box-title" style="color: #FFF;">The Two-Way Semantic Bridge</div>
+            <div class="box-body">Gemini evaluates raw student logic in Hindi/English, then translates verified grit into consulting-grade keywords (MECE, unit margins) required by corporate ATS algorithms.</div>
           </div>
-          <div class="napkin-card">
-            <div class="card-heading" style="color: var(--cyan);">₹48,000 Node Retrofit Capex</div>
-            <div class="card-desc">Amortized over 14 months with a 3.8x enterprise LTV/CAC ratio. The market incentive makes self-sustaining nationwide expansion inevitable.</div>
+
+          <div class="napkin-box">
+            <div class="box-title" style="color: var(--cyan);">Premium Talent Monetization</div>
+            <div class="box-body">Replaces cheap billboard ads with high-yield corporate talent acquisition subscriptions. Slashing corporate hiring costs from ₹1,85,000 to ₹14,200 (92.3% savings).</div>
           </div>
         </div>
+      </div>
+
+      <div class="telemetry-bar">
+        <span>BIAS MITIGATION: Zero Institutional Signifiers • 100% Empirical Work-Sample Verification.</span>
+        <span style="color: var(--amber);">[MERITOCRATIC RAIL ENGAGED]</span>
       </div>
     </section>
 
-    <!-- SLIDE 5: THE NATIONAL FLYWHEEL (Napkin AI Roadmap & Call to Action) -->
-    <section class="slide" id="s4">
-      <div class="slide-eyebrow">05. THE 2026–2030 HORIZON</div>
-      <h1 class="slide-headline">The National Scale Engine: Routing Upward Social Mobility</h1>
-      
-      <div class="napkin-grid-3col">
-        <div class="napkin-card glow-cyan">
-          <span style="font-family: var(--mono); font-size: 0.72rem; color: var(--cyan); font-weight: 800;">PHASE 01 (Q4 2026)</span>
-          <div class="card-heading" style="margin-top: 0.4rem;">Peripheral Metro Corridors</div>
-          <div class="card-desc" style="line-height: 1.6;">
-            • 120 Nodes across outer Delhi-NCR and East Bengaluru transit loops.<br>
-            • 8 Enterprise Anchor Partners.<br>
-            • 1,500 Solutions Routed.<br>
-            • 100 Verified Direct Hires.
-          </div>
+    <!-- ==================== SLIDE 5: THE EXECUTION FEASIBILITY ==================== -->
+    <section class="slide" id="slide-4">
+      <div class="slide-eyebrow">SLIDE 05 • DEPLOYMENT ROADMAP &amp; CIVIC VIABILITY</div>
+      <h1 class="slide-headline">Pragmatic Civic Execution: Horizontal 3-Month Pilot Matrix</h1>
+
+      <div style="display: flex; flex-direction: column; gap: 1.6rem; height: calc(100% - 110px); justify-content: center;">
+        <!-- Horizontal Deployment Timeline Schema (SVG) -->
+        <div class="diagram-stage" style="height: 240px;">
+          <svg class="napkin-schema" viewBox="0 0 900 200">
+            <!-- Timeline Axis -->
+            <line x1="50" y1="100" x2="850" y2="100" stroke="#334155" stroke-width="4"/>
+
+            <!-- Phase 1 Checkpoint -->
+            <circle cx="200" cy="100" r="22" fill="#0B0F19" stroke="#FFB800" stroke-width="4"/>
+            <text x="200" y="106" fill="#FFB800" font-family="'JetBrains Mono'" font-weight="800" font-size="13" text-anchor="middle">01</text>
+            
+            <rect x="75" y="135" width="250" height="60" rx="6" fill="#111827" stroke="#1F2937"/>
+            <text x="200" y="158" fill="#FFF" font-family="'Space Grotesk'" font-weight="700" font-size="13" text-anchor="middle">MONTH 1: ZERO-HARDWARE PILOT</text>
+            <text x="200" y="178" fill="#94A3B8" font-family="'Inter'" font-size="11" text-anchor="middle">Municipal libraries &amp; community lab PCs</text>
+
+            <!-- Arrow 1 to 2 -->
+            <polygon points="500,100 485,90 485,110" fill="#FFB800"/>
+
+            <!-- Phase 2 Checkpoint -->
+            <circle cx="500" cy="100" r="22" fill="#0B0F19" stroke="#00F5D4" stroke-width="4"/>
+            <text x="500" y="106" fill="#00F5D4" font-family="'JetBrains Mono'" font-weight="800" font-size="13" text-anchor="middle">02</text>
+
+            <rect x="375" y="135" width="250" height="60" rx="6" fill="#111827" stroke="#1F2937"/>
+            <text x="500" y="158" fill="#FFF" font-family="'Space Grotesk'" font-weight="700" font-size="13" text-anchor="middle">MONTH 2–3: MODULAR STREET SCALE</text>
+            <text x="500" y="178" fill="#94A3B8" font-family="'Inter'" font-size="11" text-anchor="middle">Bistable e-paper behind ballistic glass</text>
+
+            <!-- Target Milestone Flag -->
+            <circle cx="750" cy="100" r="22" fill="#0B0F19" stroke="#10B981" stroke-width="4"/>
+            <text x="750" y="106" fill="#10B981" font-family="'JetBrains Mono'" font-weight="800" font-size="13" text-anchor="middle">03</text>
+
+            <rect x="625" y="135" width="250" height="60" rx="6" fill="#111827" stroke="#1F2937"/>
+            <text x="750" y="158" fill="#10B981" font-family="'Space Grotesk'" font-weight="700" font-size="13" text-anchor="middle">TARGET: 500 VERIFIED PLACEMENTS</text>
+            <text x="750" y="178" fill="#94A3B8" font-family="'Inter'" font-size="11" text-anchor="middle">Direct corporate ATS interview conversion</text>
+          </svg>
         </div>
 
-        <div class="napkin-card glow-amber">
-          <span style="font-family: var(--mono); font-size: 0.72rem; color: var(--amber); font-weight: 800;">PHASE 02 (2027–2028)</span>
-          <div class="card-heading" style="margin-top: 0.4rem;">Tier-2/3 Regional Scale</div>
-          <div class="card-desc" style="line-height: 1.6;">
-            • 2,500 Nodes across 10 educational clusters (Pune, Indore, Jaipur).<br>
-            • Municipal library retrofits.<br>
-            • 50+ Corporate Enterprise Partners.<br>
-            • 15,000+ Students Placed.
+        <!-- 3 Pillars of Feasibility -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+          <div class="napkin-box">
+            <div class="box-title" style="color: var(--amber);">Bypassing Civic Red Tape</div>
+            <div class="box-body">Phase 1 avoids municipal hardware procurement delays by deploying software across pre-existing computer grids in public libraries, launching in under 14 days.</div>
           </div>
-        </div>
-
-        <div class="napkin-card glow-cyan" style="border-color: var(--emerald);">
-          <span style="font-family: var(--mono); font-size: 0.72rem; color: var(--emerald); font-weight: 800;">PHASE 03 (2029–2030)</span>
-          <div class="card-heading" style="margin-top: 0.4rem;">National Civic Utility Grid</div>
-          <div class="card-desc" style="line-height: 1.6;">
-            • Full integration into National Smart Cities Mission.<br>
-            • Open Municipal Problem-Solving API.<br>
-            • Regional MSMEs post civic challenges.<br>
-            • Complete eradication of pedigree bias.
+          <div class="napkin-box">
+            <div class="box-title" style="color: #FFF;">Shatterproof Street Enclosure</div>
+            <div class="box-body">Phase 2 retrofits bus stops with solid-state, reflective monochrome electronic ink displays embedded within existing steel frames, sealed against monsoonal weather behind 12mm polycarbonate.</div>
+          </div>
+          <div class="napkin-box">
+            <div class="box-title" style="color: var(--cyan);">National Scale Vision</div>
+            <div class="box-body">Funded through corporate placement bounties, scaling from 120 pilot nodes across Delhi-NCR and Bengaluru into a pan-India municipal utility grid by 2030.</div>
           </div>
         </div>
       </div>
 
-      <!-- Hero Statement Banner -->
-      <div style="background: rgba(17, 24, 39, 0.9); border: 1px solid #FFF; border-radius: 8px; padding: 1rem 2rem; text-align: center; margin-top: 1.2rem;">
-        <span style="font-family: var(--display); font-size: 1.15rem; font-weight: 700; color: #FFF;">
-          "The smart city of 2026 does not merely move physical bodies through space; it moves human potential through social strata."
-        </span>
+      <div class="telemetry-bar">
+        <span>MUNICIPAL CONCESSION: Zero Public Capex • Self-Funding Enterprise Talent Model • 3-Month Conversion Milestone.</span>
+        <span style="color: var(--amber);">[STAGE WIN DIRECTIVE LOCKED]</span>
       </div>
     </section>
   </main>
 
   <footer>
     <div>Project KOM (Kinetic Opportunity Mesh) • Finalist Delegation • Application #FMC-2026-KOM-8842</div>
-    <div class="dots">
-      <div class="dot active" onclick="jump(0)"></div>
-      <div class="dot" onclick="jump(1)"></div>
-      <div class="dot" onclick="jump(2)"></div>
-      <div class="dot" onclick="jump(3)"></div>
-      <div class="dot" onclick="jump(4)"></div>
+    <div class="stepper">
+      <div class="step-pill active" onclick="goto(0)"></div>
+      <div class="step-pill" onclick="goto(1)"></div>
+      <div class="step-pill" onclick="goto(2)"></div>
+      <div class="step-pill" onclick="goto(3)"></div>
+      <div class="step-pill" onclick="goto(4)"></div>
     </div>
-    <div>SLIDE <span id="slide-index">1</span> OF 5</div>
+    <div>SLIDE <span id="slide-num">1</span> OF 5</div>
   </footer>
 
   <script>
-    let cur = 0;
+    let current = 0;
     const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const idxEl = document.getElementById('slide-index');
+    const pills = document.querySelectorAll('.step-pill');
+    const num = document.getElementById('slide-num');
 
-    function jump(i) {
-      if (i < 0) i = 0;
-      if (i >= slides.length) i = slides.length - 1;
-      cur = i;
-      slides.forEach((s, k) => s.classList.toggle('active', k === cur));
-      dots.forEach((d, k) => d.classList.toggle('active', k === cur));
-      idxEl.textContent = cur + 1;
+    function goto(n) {
+      if (n < 0) n = 0;
+      if (n >= slides.length) n = slides.length - 1;
+      current = n;
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+      pills.forEach((p, idx) => p.classList.toggle('active', idx === current));
+      num.textContent = current + 1;
     }
 
-    function next() { jump(cur + 1); }
-    function prev() { jump(cur - 1); }
+    function next() { goto(current + 1); }
+    function prev() { goto(current - 1); }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ') next();
