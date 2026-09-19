@@ -83,10 +83,10 @@ Google Gemini reads the response and asks follow-up coaching questions to help t
 
 ## The Team
 
-| Name | Role |
-|---|---|
-| **Ridhi Jain** | Founder & Principal System Architect — core platform architecture, Gemini AI engine, and technical product execution |
-| **[Vanshika Sharma ↗](https://www.linkedin.com/in/vanshika-sharma25/)** | Public Policy & Governance Lead (Co-Presenter) — institutional strategy, municipal regulatory sandboxes, DPDP compliance, and civic scaling |
+| Name | Official Designation | Role & Contribution |
+|---|---|---|
+| **Ridhi Jain** | Founder & Principal System Architect | Leads core platform architecture, Google Gemini AI engine, mobile commuter portal, and technical product engineering. |
+| **[Vanshika Sharma ↗](https://www.linkedin.com/in/vanshika-sharma25/)** | Public Policy Expert / Governance & Civic Execution Lead | Leads the strategic integration of Project KOM into urban municipal frameworks and public utility grids. Handles live stage presentation delivery at the grand finale, grounding our technical Gemini engine architecture within practical public administration, land-use permissions, and community impact policies. |
 
 ---
 
