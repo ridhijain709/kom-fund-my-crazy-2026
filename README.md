@@ -75,6 +75,7 @@ Google Gemini reads the response and asks follow-up coaching questions to help t
 | 🏢 **Corporate ATS Talent Dashboard** | [Open Company Dashboard →](https://ridhijain709.github.io/kom-fund-my-crazy-2026/company.html) |
 | 📊 **Presentation Deck** | [View Deck →](https://ridhijain709.github.io/kom-fund-my-crazy-2026/deck.html) |
 | 📋 **Project Brief** | [Download PDF →](kom-brief.pdf) · [Read Online →](kom-brief.html) |
+| 🏛 **Policy & Governance Blueprint** | [Download PDF →](kom-policy-brief.pdf) · [Read Online →](kom-policy-brief.html) |
 | 🎞 **Presentation Slides** | [PDF →](kom-presentation.pdf) · [PPTX →](kom-presentation.pptx) |
 | 🗒 **Stage Playbook** | [Download →](kom-playbook.pdf) |
 
@@ -84,8 +85,8 @@ Google Gemini reads the response and asks follow-up coaching questions to help t
 
 | Name | Role |
 |---|---|
-| **Ridhi Jain** | Founder & Architect — built the entire platform, product design, and technical system |
-| **[Vanshika Sharma ↗](https://www.linkedin.com/in/vanshika-sharma25/)** | Co-Presenter & Collaborator — stage delivery, narrative, and audience communication |
+| **Ridhi Jain** | Founder & Principal System Architect — core platform architecture, Gemini AI engine, and technical product execution |
+| **[Vanshika Sharma ↗](https://www.linkedin.com/in/vanshika-sharma25/)** | Public Policy & Governance Lead (Co-Presenter) — institutional strategy, municipal regulatory sandboxes, DPDP compliance, and civic scaling |
 
 ---
 

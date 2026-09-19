@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project KOM — Public Policy, Governance Strategy &amp; Pilot Deployment Blueprint</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700;800&display=swap');
+    
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #0F172A;
+      line-height: 1.6;
+      font-size: 9.5pt;
+      background: #FFFFFF;
+      padding: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header-banner {
+      border-bottom: 2.5px solid #0B0F19;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .doc-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16pt;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0B0F19;
+      margin: 0;
+    }
+    .doc-subtitle {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 3px;
+    }
+    .status-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      font-weight: 700;
+      background: #0B0F19;
+      color: #00F5D4;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-bar {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      font-size: 8.5pt;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .meta-bar strong {
+      color: #0F172A;
+    }
+    .meta-bar a {
+      color: #0284C7;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #0B0F19;
+      border-bottom: 1.5px solid #E2E8F0;
+      padding-bottom: 5px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h2 .sec-num {
+      background: #0284C7;
+      color: #FFF;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10pt;
+      font-weight: 700;
+      color: #0F172A;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+      text-align: justify;
+    }
+
+    .highlight-card {
+      background: #F0FDF4;
+      border-left: 4px solid #16A34A;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 12px 0;
+      font-size: 9pt;
+      color: #166534;
+    }
+
+    .policy-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+    }
+    .policy-card .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+    .badge-blue { background: #E0F2FE; color: #0369A1; }
+    .badge-amber { background: #FEF3C7; color: #92400E; }
+    .badge-green { background: #DCFCE7; color: #166534; }
+    .badge-purple { background: #F3E8FF; color: #6B21A8; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px 0;
+      font-size: 8.5pt;
+    }
+    th, td {
+      border: 1px solid #CBD5E1;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    th {
+      background: #F1F5F9;
+      font-weight: 700;
+      color: #0F172A;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .flow-box {
+      background: #0B0F19;
+      color: #E2E8F0;
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      line-height: 1.5;
+      margin: 12px 0;
+    }
+
+    .footer-bar {
+      margin-top: 24px;
+      padding-top: 10px;
+      border-top: 1px solid #E2E8F0;
+      font-size: 8pt;
+      color: #64748B;
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .footer-bar a {
+      color: #0284C7;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-banner">
+    <div>
+      <div class="doc-title">Project KOM — Governance &amp; Public Policy Strategy</div>
+      <div class="doc-subtitle">Institutional Execution, Pilot Setup &amp; Regulatory Blueprint</div>
+    </div>
+    <div class="status-badge">GOOGLE FMC 2026 FINALIST</div>
+  </div>
+
+  <div class="meta-bar">
+    <div><strong>FOUNDER &amp; SYSTEM ARCHITECT:</strong> Ridhi Jain</div>
+    <div><strong>PUBLIC POLICY &amp; GOVERNANCE LEAD:</strong> <a href="https://www.linkedin.com/in/vanshika-sharma25/" target="_blank">Vanshika Sharma ↗</a> (Co-Presenter)</div>
+    <div><strong>APP ID:</strong> #FMC-2026-KOM-8842</div>
+  </div>
+
+  <div class="highlight-card">
+    <strong>Strategic Objective:</strong> Transform Project KOM from a software-driven hackathon concept into an approved, legally sound, zero-capex municipal civic initiative ready for immediate pilot implementation across Delhi-NCR.
+  </div>
+
+  <!-- SECTION 01 -->
+  <h2><span class="sec-num">01</span> Executive Introduction &amp; Leadership Synergy</h2>
+  <p>
+    When presenting before technical and venture judges at the Grand Finale (IIT Delhi, October 1, 2026), projects that rely solely on software demos are frequently scrutinized on civic viability, regulatory compliance, and municipal permission bottlenecks.
+  </p>
+  <p>
+    Project KOM bridges this gap through a complementary dual-leadership structure that pairs deeply engineered technology with specialized public policy navigation:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Domain</th>
+        <th style="width: 35%;">Ridhi Jain (Founder &amp; System Architect)</th>
+        <th style="width: 40%;">Vanshika Sharma (Public Policy &amp; Governance Lead)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Primary Responsibility</strong></td>
+        <td>Core System Architecture &amp; Gemini AI Engine</td>
+        <td>Civic Machinery, Regulatory Compliance &amp; Scaling Policy</td>
+      </tr>
+      <tr>
+        <td><strong>Core Deliverables</strong></td>
+        <td>
+          • Live Google Gemini 2.5 Flash evaluation API<br>
+          • Commuter mobile app with Web Speech voice dictation<br>
+          • Blind ATS corporate recruitment dashboard
+        </td>
+        <td>
+          • Municipal MoU &amp; Regulatory Sandbox filings<br>
+          • National Education Policy (NEP 2020) alignment<br>
+          • DPDP Act 2023 privacy governance &amp; ULB coordination
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Grand Finale Stage Role</strong></td>
+        <td>Live Product Demonstration &amp; Engineering Rigor</td>
+        <td>Civic Roadmap, Municipal Feasibility &amp; Policy Defense</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 02 -->
+  <h2><span class="sec-num">02</span> The Public Policy Foundation: Why Her Role is Crucial</h2>
+  <p>
+    Vanshika Sharma’s background in Public Policy (MPP) and institutional governance brings three indispensable strategic assets to Project KOM:
+  </p>
+
+  <div class="policy-card">
+    <div class="badge badge-blue">CRITERION 1: INSTITUTIONAL &amp; ACADEMIC AUTHORITY</div>
+    <h3>Ground-Level Presence at Finale Venue (IIT Delhi)</h3>
+    <p>
+      Having an institutional connection to IIT Delhi elevates the team's presentation from an external visiting delegation to a locally anchored initiative. It provides immediate stage credibility when addressing judges and municipal mentors.
+    </p>
+  </div>
+
+  <div class="policy-card">
+    <div class="badge badge-amber">CRITERION 2: POLICY SCHEME MAPPING</div>
+    <h3>Aligning KOM with National Priorities (NEP 2020 &amp; Smart Cities)</h3>
+    <p>
+      Bureaucrats and municipal commissioners do not pass new laws for individual startups. Vanshika maps KOM directly into existing national targets:
+    </p>
+    <ul style="padding-left: 20px; font-size: 9pt; color: #334155; margin-bottom: 6px;">
+      <li><strong>National Education Policy (NEP 2020):</strong> Meets the mandate for experiential problem-solving and equitable access to industry challenges for Tier-2/Tier-3 students.</li>
+      <li><strong>Smart Cities Mission:</strong> Provides urban local bodies with measurable community skilling and ambient infrastructure upgrades that boost their annual Smart City scorecard.</li>
+    </ul>
+  </div>
+
+  <div class="policy-card">
+    <div class="badge badge-green">CRITERION 3: REGULATORY COMPLIANCE</div>
+    <h3>Data Governance under the DPDP Act 2023</h3>
+    <p>
+      Public infrastructure projects handle sensitive student data. Vanshika structures KOM’s compliance with India's Digital Personal Data Protection Act (DPDP Act 2023): candidate submissions remain completely anonymized at the edge, masking college names and personal contact details until mutual recruiter opt-in is established.
+    </p>
+  </div>
+
+  <!-- SECTION 03 -->
+  <h2><span class="sec-num">03</span> Step-by-Step Pilot Installation &amp; Government Roadmap</h2>
+  <p>
+    To bypass long municipal red tape and multi-year tender cycles, Project KOM follows a structured 3-phase rollout strategy:
+  </p>
+
+  <div class="flow-box">
+PHASE 1: Pure Software Engine in Pre-Approved Public Spaces (Months 1–3)
+ ↳ Deployed inside Municipal Libraries &amp; Public Computer Labs (e.g. DSEU/Community Reading Rooms).
+ ↳ Leverages existing government IT infrastructure with ZERO street construction permits required.
+ ↳ Target Milestone: 500 verified student submissions and initial employer hiring validation.
+       │
+       ▼
+PHASE 2: Startup India Regulatory Sandbox Pilot (Months 4–6)
+ ↳ Filed under the State Innovation Sandbox Guidelines for greenfield technology pilots.
+ ↳ Secures 90-day trial sign-off from the City Municipal Commissioner via a single administrative order.
+ ↳ Target Milestone: 50 transit screen units deployed along one high-footfall educational corridor.
+       │
+       ▼
+PHASE 3: Piggybacking on Commercial Advertising Concessions (Months 7–12)
+ ↳ Partner with private media concessionaires who already own long-term bus shelter maintenance contracts.
+ ↳ Replace static paper hoardings with low-power reflective e-paper screens at zero capex to city treasury.
+ ↳ Self-funded via corporate employer subscription fees (₹14,200/hire vs ₹1,85,000 standard campus cost).
+  </div>
+
+  <!-- SECTION 04 -->
+  <h2><span class="sec-num">04</span> Answers to the 4 Hardest Government &amp; Policy Queries</h2>
+
+  <div class="policy-card">
+    <div class="badge badge-purple">QUERY 01</div>
+    <h3>"Municipal tender processes take 12–18 months. How can a startup deploy quickly?"</h3>
+    <p><strong>The Strategy:</strong> We completely bypass commercial bidding tenders during Phase 1 &amp; 2. By leveraging the State Regulatory Sandbox provisions under the Startup India mission, Urban Local Bodies (ULBs) can authorize a 90-day experimental pilot in one educational zone using a simple administrative sanction.</p>
+  </div>
+
+  <div class="policy-card">
+    <div class="badge badge-purple">QUERY 02</div>
+    <h3>"Where does the capex come from for street screens and maintenance?"</h3>
+    <p><strong>The Strategy:</strong> Municipal corporations do not pay for the hardware. We co-locate with private outdoor advertising concessionaires who already hold long-term maintenance contracts for transit shelters. We upgrade their static slots to energy-efficient e-paper at zero cost to the municipality, funded by corporate hiring subscriptions.</p>
+  </div>
+
+  <div class="policy-card">
+    <div class="badge badge-purple">QUERY 03</div>
+    <h3>"How do you address public liability and data privacy on public screens?"</h3>
+    <p><strong>The Strategy:</strong> The physical display operates as a unidirectional broadcast screen that never collects or stores personal data. Commuter answers are submitted on personal mobile devices with air-gapped anonymization. All raw data is scrubbed and purged within 24 hours in full compliance with the DPDP Act 2023.</p>
+  </div>
+
+  <div class="policy-card">
+    <div class="badge badge-purple">QUERY 04</div>
+    <h3>"Why would transit authorities care about student employment?"</h3>
+    <p><strong>The Strategy:</strong> Transit authorities face significant pressure to demonstrate civic value beyond basic transportation. KOM converts unproductive dwell time (18.2 min daily average) into measurable skilling, directly contributing to the city's Smart Cities Mission annual assessment without requiring any municipal budget.</p>
+  </div>
+
+  <!-- SECTION 05 -->
+  <h2><span class="sec-num">05</span> Immediate Pilot Execution Checklist (Delhi-NCR Corridor)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Milestone</th>
+        <th>Target Partner / Agency</th>
+        <th>Output Deliverable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Institutional Lab Setup</strong></td>
+        <td>Delhi Public Library &amp; DSEU Campus Labs</td>
+        <td>Software-only pilot access across 20 reading centers.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Sandbox Application</strong></td>
+        <td>Department of Information Technology / Urban Local Body</td>
+        <td>90-day regulatory sandbox pilot order for Noida-Delhi transit corridor.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Concessionaire MoU</strong></td>
+        <td>Private Outdoor Transit Advertising Concessionaire</td>
+        <td>Standardized tri-partite MoU for 50 shelter e-paper screen retrofits.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Employer Onboarding</strong></td>
+        <td>Tier-1 Supply Chain, Logistics &amp; Healthcare Enterprise Partners</td>
+        <td>3 active corporate challenges with guaranteed review SLAs for top candidates.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer-bar">
+    <div>Project KOM • Google FMC 2026 National Finalist • App #FMC-2026-KOM-8842</div>
+    <div><a href="index.html">Simulator</a> | <a href="student.html">Student Portal</a> | <a href="company.html">Company ATS</a> | <a href="deck.html">Deck</a></div>
+  </div>
+
+</body>
+</html>
