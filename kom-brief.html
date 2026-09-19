@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project KOM — Official Project Brief & Overview</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700;800&display=swap');
+    
+    @page {
+      size: A4;
+      margin: 18mm 16mm 18mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: #0F172A;
+      line-height: 1.6;
+      font-size: 9.5pt;
+      background: #FFFFFF;
+    }
+
+    .header-banner {
+      border-bottom: 2.5px solid #0B0F19;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .doc-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18pt;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0B0F19;
+      margin: 0;
+    }
+    .doc-subtitle {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 3px;
+    }
+    .status-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      font-weight: 700;
+      background: #0B0F19;
+      color: #FFB800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-bar {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin-bottom: 18px;
+      font-size: 8.5pt;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .meta-bar strong {
+      color: #0F172A;
+    }
+
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #0B0F19;
+      border-bottom: 1.5px solid #E2E8F0;
+      padding-bottom: 5px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h2 .sec-num {
+      background: #0284C7;
+      color: #FFF;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+      font-size: 9.5pt;
+    }
+
+    .callout-lead {
+      background: #F0FDF4;
+      border-left: 3.5px solid #16A34A;
+      padding: 12px 16px;
+      margin: 12px 0 16px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 10pt;
+      font-weight: 500;
+      color: #14532D;
+      line-height: 1.55;
+    }
+
+    .highlight-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-left: 3.5px solid #0284C7;
+      padding: 12px 14px;
+      margin: 12px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .step-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 12px 0 16px 0;
+    }
+    .step-row {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      page-break-inside: avoid;
+    }
+    .step-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9pt;
+      font-weight: 800;
+      background: #0B0F19;
+      color: #FFB800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+    .step-content {
+      flex: 1;
+    }
+    .step-title {
+      font-weight: 700;
+      color: #0F172A;
+      font-size: 9.5pt;
+      margin-bottom: 3px;
+    }
+    .step-desc {
+      font-size: 9pt;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .slide-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-left: 3.5px solid #0B0F19;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      page-break-inside: avoid;
+    }
+    .slide-header {
+      font-weight: 800;
+      color: #0F172A;
+      font-size: 9.5pt;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slide-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      color: #0284C7;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .slide-desc {
+      font-size: 8.8pt;
+      color: #334155;
+      margin-bottom: 4px;
+      line-height: 1.45;
+    }
+    .slide-bullets {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 4px;
+    }
+    .slide-bullets li {
+      font-size: 8.8pt;
+      color: #475569;
+      margin-bottom: 2px;
+      padding-left: 14px;
+      position: relative;
+    }
+    .slide-bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: #0284C7;
+      font-weight: bold;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0 16px 0;
+      page-break-inside: avoid;
+    }
+    .value-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+    .value-box-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 9pt;
+      color: #0F172A;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .value-box-text {
+      font-size: 8.5pt;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .roadmap-grid {
+      display: flex;
+      gap: 10px;
+      margin: 12px 0 16px 0;
+      page-break-inside: avoid;
+    }
+    .roadmap-col {
+      flex: 1;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-top: 3px solid #0284C7;
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+    .roadmap-phase {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #0284C7;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .roadmap-title {
+      font-weight: 800;
+      color: #0F172A;
+      font-size: 9pt;
+      margin-bottom: 4px;
+    }
+    .roadmap-desc {
+      font-size: 8.5pt;
+      color: #475569;
+      line-height: 1.4;
+    }
+
+    .footer-bar {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1.5px solid #0B0F19;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 8pt;
+      color: #64748B;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Banner -->
+  <div class="header-banner">
+    <div>
+      <h1 class="doc-title">Project KOM (Kinetic Opportunity Mesh)</h1>
+      <div class="doc-subtitle">Project Brief &amp; Overview • Google Gemini Fund My Crazy 2026</div>
+    </div>
+    <div class="status-badge">NATIONAL FINALIST</div>
+  </div>
+
+  <!-- Meta Information Bar -->
+  <div class="meta-bar">
+    <div><strong>FOUNDER:</strong> Ridhi Jain &nbsp;|&nbsp; <strong>PRESENTER:</strong> <a href="https://www.linkedin.com/in/vanshika-sharma25/" target="_blank" style="color:#0284C7;">Vanshika Sharma ↗</a></div>
+    <div><strong>APPLICATION ID:</strong> #FMC-2026-KOM-8842</div>
+    <div><strong>STAGE:</strong> Grand Finale Selection (Oct 1, IIT Delhi)</div>
+  </div>
+
+  <!-- Big Vision Callout -->
+  <div class="callout-lead">
+    "Talent and ambition are distributed equally across India. Opportunity is not. Project KOM transforms the idle minutes millions of students spend waiting at everyday bus stops into an open, direct doorway to real career opportunities."
+  </div>
+
+  <!-- Section 1 -->
+  <h2><span class="sec-num">01</span> The Core Problem: The Geographic Opportunity Divide</h2>
+  <p>
+    Across metropolitan India, over <strong>12.4 million college students</strong> commute on public transit every single day. The average commuter spends <strong>18.2 minutes</strong> standing at transit stops, waiting in silence or scrolling through social feeds.
+  </p>
+  <p>
+    Meanwhile, in corporate hubs like Gurugram, Bengaluru, and Mumbai, companies urgently need sharp, creative, practical thinkers. Yet traditional campus recruiting visits only a tiny fraction of top-tier colleges (the top 2%). A student studying in an ordinary college in Kanpur, Agra, or Varanasi might have remarkable problem-solving skills, but their resume is filtered out by automated screening software before any human recruiter ever reads it.
+  </p>
+  <p>
+    The problem is not that students lack talent. The problem is that they lack a physical bridge to show what they can actually do. <strong>Project KOM builds that bridge directly into their daily commute.</strong>
+  </p>
+
+  <!-- Section 2 -->
+  <h2><span class="sec-num">02</span> The Simple Solution: How KOM Works in Daily Life</h2>
+  <p>
+    KOM retrofits everyday public bus shelters and neighborhood library spaces with simple, clear display boards that feature real-world business and design puzzles from partner companies. Here is how a student experiences it:
+  </p>
+
+  <div class="step-grid">
+    <div class="step-row">
+      <div class="step-number">STEP 1</div>
+      <div class="step-content">
+        <div class="step-title">Spot a Real-World Challenge at the Bus Stop</div>
+        <div class="step-desc">While waiting for their bus, a student looks up and sees a clear, intriguing 3-line problem posted by a real company. For example: <em>"How can a local grocery network cut fresh food waste during peak summer heat?"</em></div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">STEP 2</div>
+      <div class="step-content">
+        <div class="step-title">Scan the QR Code with Any Smartphone — No App Needed</div>
+        <div class="step-desc">The student scans a quick QR code. A lightweight webpage opens instantly in their phone browser. There is no app to download, no password to remember, and no sign-up fee. It works smoothly even on basic mobile connections.</div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">STEP 3</div>
+      <div class="step-content">
+        <div class="step-title">Think, Type, or Speak on the Commute</div>
+        <div class="step-desc">Students answer three simple questions. They can type their response or record a 2-minute voice note while riding the bus, explaining their logic and practical ideas in their own natural words.</div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">STEP 4</div>
+      <div class="step-content">
+        <div class="step-title">Helpful Socratic Guidance Powered by Google Gemini</div>
+        <div class="step-desc">Instead of grading like a strict exam, Gemini acts like a patient, encouraging mentor. It highlights strong reasoning and gently asks questions that help the student think deeper: <em>"Great point on refrigeration! How would a small neighborhood store handle the electricity cost?"</em></div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-number">STEP 5</div>
+      <div class="step-content">
+        <div class="step-title">Fair, Blind Evaluation Sent Directly to Hiring Teams</div>
+        <div class="step-desc">When a student submits a great solution, their answer is packaged into a clean dossier and sent directly to company hiring managers. The student's name, college name, and city are hidden so they are judged purely on merit, creativity, and practical logic. Top thinkers earn direct interview invites.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- Section 3 -->
+  <h2><span class="sec-num">03</span> Why This Model Works: Mutual Value for Everyone</h2>
+  <div class="value-grid">
+    <div class="value-box">
+      <div class="value-box-title">🎓 For Students</div>
+      <div class="value-box-text">
+        <strong>100% Free forever.</strong> Direct access to real industry puzzles, personalized thinking feedback, and interview opportunities without needing an elite college brand or privileged connections.
+      </div>
+    </div>
+    <div class="value-box">
+      <div class="value-box-title">🏢 For Companies</div>
+      <div class="value-box-text">
+        <strong>High-quality talent at 92% lower cost.</strong> Replaces expensive campus recruitment tours (average ₹1,85,000 per hire) with pre-evaluated, genuinely creative thinkers for just ₹14,200 per placement.
+      </div>
+    </div>
+    <div class="value-box">
+      <div class="value-box-title">🏛️ For Cities &amp; Transit</div>
+      <div class="value-box-text">
+        <strong>Zero initial budget required.</strong> Turns ordinary bus shelters and public libraries into active community education hubs, boosting citizen social mobility without new civic taxes.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <h2><span class="sec-num">04</span> Overview of the 5-Slide Presentation Deck</h2>
+  <p>
+    The accompanying executive presentation deck tells this story visually and crisply through five straightforward slides:
+  </p>
+
+  <div class="slide-card">
+    <div class="slide-header">
+      <span>SLIDE 1: Re-Imagining Everyday Transit Spaces</span>
+      <span class="slide-tag">The Big Idea</span>
+    </div>
+    <div class="slide-desc">
+      Shows how public transit shelters can be upgraded from passive waiting areas into active problem-solving hubs that spark curiosity every single morning.
+    </div>
+    <ul class="slide-bullets">
+      <li>Turns 18.2 minutes of wasted waiting time into purposeful personal growth.</li>
+      <li>Requires ₹0 in initial city budget by leveraging existing infrastructure.</li>
+      <li>Moves smart city thinking from managing road traffic to unlocking human potential.</li>
+    </ul>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-header">
+      <span>SLIDE 2: The Reality of Geographic Gatekeeping</span>
+      <span class="slide-tag">The Problem</span>
+    </div>
+    <div class="slide-desc">
+      Illustrates how 88% of corporate hiring opportunities remain locked in just 2.4% of urban elite zones, leaving millions of capable students completely isolated.
+    </div>
+    <ul class="slide-bullets">
+      <li>Resumes from regional colleges are routinely rejected by automated pedigree filters.</li>
+      <li>Internet access provides information, but not an accessible professional network.</li>
+      <li>Students want to prove what they can build, but have no platform to be seen.</li>
+    </ul>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-header">
+      <span>SLIDE 3: How Real Problems Reach Everyday Commuters</span>
+      <span class="slide-tag">The Engine</span>
+    </div>
+    <div class="slide-desc">
+      Shows the clean, reliable path from a company desk to a street-level screen, translating complex industry briefs into clear, inspiring student questions.
+    </div>
+    <ul class="slide-bullets">
+      <li>Partner companies share non-sensitive operational puzzles and growth questions.</li>
+      <li>Gemini clarifies complex jargon into concise, bite-sized micro-challenges.</li>
+      <li>Questions appear on ultra-low-power, glare-free e-paper screens that work in full sunlight.</li>
+    </ul>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-header">
+      <span>SLIDE 4: Fair Hiring Based Purely on Real Ability</span>
+      <span class="slide-tag">The User Flow</span>
+    </div>
+    <div class="slide-desc">
+      Visualizes the student solving a challenge on their phone, receiving constructive coaching, and submitting a blind capability dossier to corporate recruiters.
+    </div>
+    <ul class="slide-bullets">
+      <li>Students can speak or type their ideas naturally during their commute.</li>
+      <li>Gemini provides real-time coaching to help organize and refine their thinking.</li>
+      <li>Recruiters evaluate candidates with names and colleges hidden, ensuring 100% fair selection.</li>
+    </ul>
+  </div>
+
+  <div class="slide-card">
+    <div class="slide-header">
+      <span>SLIDE 5: A Sensible, Step-by-Step Execution Plan</span>
+      <span class="slide-tag">The Roadmap</span>
+    </div>
+    <div class="slide-desc">
+      Lays out a realistic, low-risk roadmap that proves student demand and corporate hiring before investing in street-level physical hardware.
+    </div>
+    <ul class="slide-bullets">
+      <li>Starts immediately in public libraries and college reading rooms with existing computers.</li>
+      <li>Expands to 120 bus stops only after achieving 500 verified student job and internship placements.</li>
+      <li>Hardware is vandal-resistant, low-power, and designed specifically for Indian weather.</li>
+    </ul>
+  </div>
+
+  <!-- Section 5 -->
+  <h2><span class="sec-num">05</span> Realistic, Low-Risk Implementation Roadmap</h2>
+  <div class="roadmap-grid">
+    <div class="roadmap-col">
+      <div class="roadmap-phase">Phase 01 • Months 1 to 3</div>
+      <div class="roadmap-title">Zero-Hardware Pilot</div>
+      <div class="roadmap-desc">
+        Launch immediately using existing computer systems in municipal libraries and college reading rooms. Validate student engagement and achieve the first 500 verified corporate placements.
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-phase">Phase 02 • Months 4 to 6</div>
+      <div class="roadmap-title">High-Density Bus Corridor</div>
+      <div class="roadmap-desc">
+        Install 50 rugged, low-power electronic ink display units at student-heavy bus shelters along a single urban pilot corridor (e.g., Greater Noida to Delhi).
+      </div>
+    </div>
+    <div class="roadmap-col">
+      <div class="roadmap-phase">Phase 03 • Months 7 to 12</div>
+      <div class="roadmap-title">Regional Expansion</div>
+      <div class="roadmap-desc">
+        Scale to 250 transit shelters across major student commuting hubs across Uttar Pradesh and NCR, funded entirely by sustainable corporate talent subscriptions.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <h2><span class="sec-num">06</span> The Bigger Picture: Transforming Social Mobility</h2>
+  <p>
+    India does not have a shortage of smart, hard-working students. It has an infrastructure problem: the distance between where great minds grow up and where great companies hire is simply too wide.
+  </p>
+  <p>
+    By placing real-world problem-solving directly in the path of everyday commuters, <strong>Project KOM makes opportunity part of the city's physical landscape</strong>. It gives every student waiting for a bus the chance to prove their worth, sharpen their mind, and claim their rightful seat at the table.
+  </p>
+
+  <!-- Footer Bar -->
+  <div class="footer-bar">
+    <div>PROJECT KOM • OFFICIAL BRIEF &amp; OVERVIEW</div>
+    <div>RIDHI JAIN (FOUNDER) • VANSHIKA SHARMA (PRESENTER) • GOOGLE FMC 2026</div>
+  </div>
+
+</body>
+</html>
