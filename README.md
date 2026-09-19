@@ -87,7 +87,7 @@ Google Gemini reads the response and asks follow-up coaching questions to help t
 
 ---
 
-## How It's Built (Plain English)
+## How It's Built
 
 The demo simulator runs entirely in the browser — no server required.
 
