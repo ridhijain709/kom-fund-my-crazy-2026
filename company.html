@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOM — Company Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0B0F19;
+      --card: #111827;
+      --card2: #0F1A2E;
+      --border: #1E2D45;
+      --amber: #FFB800;
+      --cyan: #00F5D4;
+      --green: #10B981;
+      --red: #F43F5E;
+      --purple: #7C3AED;
+      --text: #E2E8F0;
+      --muted: #64748B;
+      --mono: 'Courier New', monospace;
+    }
+
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+    /* ─── HEADER ─── */
+    header {
+      background: #080C15;
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .h-left { display: flex; align-items: center; gap: 1.4rem; }
+    .brand { font-family: var(--mono); font-size: 0.88rem; color: var(--amber); font-weight: 700; letter-spacing: 0.1em; }
+    .h-subtitle { font-size: 0.8rem; color: var(--muted); font-family: var(--mono); }
+    .h-nav a {
+      font-size: 0.78rem;
+      font-family: var(--mono);
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      margin-left: 0.6rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .h-nav a:hover { color: var(--cyan); border-color: var(--cyan); }
+
+    /* ─── COMPANY SELECTOR BAR ─── */
+    .company-bar {
+      background: #0D1525;
+      border-bottom: 1px solid var(--border);
+      padding: 0.7rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      overflow-x: auto;
+    }
+    .company-bar .cb-label { font-size: 0.7rem; font-family: var(--mono); color: var(--muted); white-space: nowrap; }
+    .corp-tab {
+      font-size: 0.78rem;
+      font-family: var(--mono);
+      font-weight: 700;
+      padding: 0.35rem 1rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+      background: transparent;
+      color: var(--muted);
+    }
+    .corp-tab.active { background: rgba(255,184,0,0.1); border-color: var(--amber); color: var(--amber); }
+    .corp-tab:hover { border-color: var(--amber); color: var(--amber); }
+
+    /* ─── STATS ROW ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-box {
+      background: var(--card2);
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+    .stat-box .s-val { font-size: 1.6rem; font-weight: 800; color: var(--cyan); font-family: var(--mono); }
+    .stat-box .s-label { font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; letter-spacing: 0.05em; }
+
+    /* ─── MAIN LAYOUT ─── */
+    .main { display: grid; grid-template-columns: 1fr; max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem; gap: 1.2rem; }
+    @media(min-width: 900px) { .main { grid-template-columns: 2fr 1fr; } }
+
+    /* ─── SUBMISSIONS LIST ─── */
+    .section-title {
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-title .count-badge {
+      background: var(--cyan);
+      color: #000;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 0.1rem 0.5rem;
+      border-radius: 20px;
+    }
+
+    .sub-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 0.8rem;
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+    .sub-card:hover { border-color: rgba(0,245,212,0.3); }
+    .sub-card.selected { border-color: var(--cyan); background: #0A1628; }
+
+    .sub-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.7rem;
+    }
+    .anon-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      font-family: var(--mono);
+      flex-shrink: 0;
+    }
+    .sub-card-header .anon-id { font-size: 0.8rem; font-family: var(--mono); color: var(--text); font-weight: 700; }
+    .sub-card-header .sub-time { font-size: 0.7rem; color: var(--muted); margin-left: auto; font-family: var(--mono); }
+
+    .score-bar-wrap { margin-bottom: 0.7rem; }
+    .score-bar-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); margin-bottom: 0.3rem; font-family: var(--mono); }
+    .score-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .score-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+    .sub-excerpt { font-size: 0.88rem; color: #94A3B8; line-height: 1.5; margin-bottom: 0.8rem; }
+
+    .sub-card-footer { display: flex; gap: 0.5rem; align-items: center; }
+    .tag {
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .tag-tier { background: rgba(255,184,0,0.1); color: var(--amber); border: 1px solid rgba(255,184,0,0.25); }
+    .tag-new { background: rgba(0,245,212,0.1); color: var(--cyan); border: 1px solid rgba(0,245,212,0.25); }
+    .btn-contact {
+      margin-left: auto;
+      background: var(--green);
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: var(--mono);
+      transition: opacity 0.2s;
+    }
+    .btn-contact:hover { opacity: 0.85; }
+    .btn-contact.requested { background: var(--border); color: var(--muted); cursor: default; }
+
+    /* ─── DETAIL PANEL ─── */
+    .detail-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem;
+      position: sticky;
+      top: 1rem;
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+    .detail-panel h3 { font-size: 0.75rem; font-family: var(--mono); color: var(--cyan); letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .detail-placeholder { color: var(--muted); font-size: 0.88rem; text-align: center; padding: 2rem 0; line-height: 1.6; }
+
+    .detail-anon { text-align: center; margin-bottom: 1rem; }
+    .detail-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 800; font-family: var(--mono);
+      margin: 0 auto 0.5rem;
+    }
+    .detail-id { font-size: 1rem; font-weight: 700; color: var(--text); font-family: var(--mono); }
+    .detail-college { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+    .detail-score-big {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      font-family: var(--mono);
+      margin: 0.8rem 0;
+    }
+
+    .detail-section { margin-top: 1rem; }
+    .detail-section .dl { font-size: 0.68rem; font-family: var(--mono); color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .detail-section .dt { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+
+    .gemini-badge {
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 8px;
+      padding: 0.8rem;
+      margin-top: 0.8rem;
+      font-size: 0.82rem;
+      color: #C4B5FD;
+      line-height: 1.55;
+    }
+    .gemini-badge .gb-header {
+      font-size: 0.68rem;
+      font-family: var(--mono);
+      color: var(--purple);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+    }
+
+    .btn-contact-full {
+      width: 100%;
+      background: var(--green);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-family: var(--mono);
+      transition: opacity 0.2s;
+    }
+    .btn-contact-full:hover { opacity: 0.85; }
+    .btn-contact-full.requested { background: var(--border); color: var(--muted); cursor: default; }
+
+    .privacy-note {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 0.5rem;
+      line-height: 1.4;
+    }
+
+    /* ─── EMPTY STATE ─── */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+    }
+    .empty-state h3 { color: var(--text); margin-bottom: 0.5rem; font-size: 1rem; }
+    .empty-state p { font-size: 0.88rem; line-height: 1.6; }
+    .empty-state a { color: var(--cyan); text-decoration: none; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="h-left">
+      <span class="brand">⚡ KOM — COMPANY DASHBOARD</span>
+      <span class="h-subtitle">Shortlisted student responses • Anonymised by Gemini</span>
+    </div>
+    <div class="h-nav">
+      <a href="student.html">Try as Student →</a>
+      <a href="index.html">Simulator ↗</a>
+    </div>
+  </header>
+
+  <!-- Company Selector -->
+  <div class="company-bar">
+    <span class="cb-label">VIEWING CHALLENGE FOR:</span>
+    <button class="corp-tab active" onclick="filterCorp('ALL')">All Companies</button>
+    <button class="corp-tab" onclick="filterCorp('APEX')">Apex Medical</button>
+    <button class="corp-tab" onclick="filterCorp('BHARAT')">Bharat Agri-Fleet</button>
+    <button class="corp-tab" onclick="filterCorp('ZING')">Zing Mobility</button>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="s-val" id="stat-total">—</div>
+      <div class="s-label">TOTAL RESPONSES</div>
+    </div>
+    <div class="stat-box">
+      <div class="s-val" id="stat-shortlisted">—</div>
+      <div class="s-label">SHORTLISTED (70+)</div>
+    </div>
+    <div class="stat-box">
+      <div class="s-val" id="stat-avg">—</div>
+      <div class="s-label">AVG GEMINI SCORE</div>
+    </div>
+    <div class="stat-box">
+      <div class="s-val">₹14,200</div>
+      <div class="s-label">COST PER HIRE</div>
+    </div>
+    <div class="stat-box">
+      <div class="s-val">92.3%</div>
+      <div class="s-label">CHEAPER THAN CAMPUS</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Left: Submission Cards -->
+    <div>
+      <div class="section-title">
+        SHORTLISTED RESPONSES
+        <span class="count-badge" id="count-badge">0</span>
+      </div>
+      <div id="submissions-list">
+        <div class="empty-state">
+          <h3>Loading submissions...</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Detail Panel -->
+    <div class="detail-panel" id="detail-panel">
+      <h3>APPLICANT DETAIL</h3>
+      <div class="detail-placeholder" id="detail-placeholder">
+        Click any submission on the left to see the full answer and Gemini evaluation.
+        <br><br>
+        Student names and colleges are hidden until you click "Request Contact."
+      </div>
+      <div id="detail-content" style="display:none;"></div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="index.html">KOM Simulator</a> &nbsp;|&nbsp;
+    <a href="student.html">Student View</a> &nbsp;|&nbsp;
+    <a href="deck.html">Presentation Deck</a> &nbsp;|&nbsp;
+    Google FMC 2026 • #FMC-2026-KOM-8842 • Ridhi Jain (Founder) • Vanshika Sharma (Presenter)
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────────────────
+    // SEED DATA — 6 realistic pre-seeded submissions
+    // These represent what the system would look like after a week of operation
+    // ─────────────────────────────────────────────────────────
+    const SEED = [
+      {
+        id: 1001,
+        corp: "APEX MEDICAL LOGISTICS CORP",
+        challenge: "How can an urban hospital network ensure continuous oxygen supply when the main power grid fails?",
+        answer: "The bottleneck isn't trucks — it's information flow. I would cluster the 6 nearest railway stations as pre-positioned oxygen buffer hubs, because they run on dedicated grid lines even during blackouts. Hospitals would file a digital request against actual ICU bed occupancy, not distance. Updates would travel on SMS so no internet dependency. This costs nothing to set up and can be live in 2 weeks.",
+        geminiResponse: "Strong systems thinking — using existing infrastructure (railway grid lines) rather than buying new assets is exactly the right instinct. The SMS fallback for zero-internet operations is a smart edge case.\n\nScore: 88/100\n\nFollow-up: How would you handle a situation where two hospitals in the same cluster both reach critical levels simultaneously — who gets priority, and how is that decision made quickly?",
+        score: 88,
+        submittedAt: new Date(Date.now() - 2.5 * 60 * 60 * 1000).toISOString(),
+        _private: { name: "Arjun Mehta", college: "Harcourt Butler Technical University, Kanpur" }
+      },
+      {
+        id: 1002,
+        corp: "BHARAT AGRI-FLEET NETWORK",
+        challenge: "How can regional grain trucks eliminate 42% of their empty return journeys without building centralised depots?",
+        answer: "Empty trucks happen because no one coordinates on return cargo. The fix: partner with rural FMCG distributors — they need small batches delivered to village shops. A truck going back to Agra from Delhi can carry fertilizer, cooking oil, or packaged goods for 5 villages along its route. Price the return leg at 40% discount to make it attractive. No depot. No new infrastructure. The truck already goes that way.",
+        geminiResponse: "Clever thinking — you've identified a real incentive structure (discounted return legs) that makes participation rational for drivers without requiring mandates or infrastructure. The partnership angle with FMCG is genuinely novel.\n\nScore: 91/100\n\nFollow-up: How would you handle route variability — different trucks take different paths each day — and still match return cargo to specific destinations reliably?",
+        score: 91,
+        submittedAt: new Date(Date.now() - 1.1 * 60 * 60 * 1000).toISOString(),
+        _private: { name: "Sneha Patel", college: "Dharmsinh Desai University, Nadiad" }
+      },
+      {
+        id: 1003,
+        corp: "ZING ELECTRIC MOBILITY",
+        challenge: "How can a city's electric scooter fleet prevent battery damage during 46°C summer heatwaves?",
+        answer: "Battery heat damage happens when scooters sit in direct sun between rides. City tree maps and metro flyover shadow corridors already exist in GIS data. Route the app to suggest parking under flyovers or wide-canopy streets. Give riders a ₹20 discount for parking in shaded municipal spots. The fleet's thermal load drops without a single piece of new hardware.",
+        geminiResponse: "Excellent use of existing public infrastructure data — most solutions go straight to hardware. Using GIS shade maps is both cost-free and immediately deployable. The discount incentive correctly aligns rider behaviour with fleet health.\n\nScore: 84/100\n\nFollow-up: During peak hours when all the shaded spots are occupied, what's your overflow solution — do you accept the heat damage, or do you have a second line of defence?",
+        score: 84,
+        submittedAt: new Date(Date.now() - 35 * 60 * 1000).toISOString(),
+        _private: { name: "Ritika Sharma", college: "Malaviya National Institute of Technology, Jaipur" }
+      },
+      {
+        id: 1004,
+        corp: "APEX MEDICAL LOGISTICS CORP",
+        challenge: "How can an urban hospital network ensure continuous oxygen supply when the main power grid fails?",
+        answer: "I would build a neighbourhood-level triage system. Every hospital would have a backup agreement with 2 nearby industrial oxygen suppliers — not just medical ones. During a blackout, dispatch prioritises by current ICU load, not geography. The data update happens via a WhatsApp group shared between all hospital store managers, which requires zero IT infrastructure and works even on 2G.",
+        geminiResponse: "Using WhatsApp as a zero-infrastructure coordination layer is genuinely creative and practical for Indian conditions where institutional IT is unreliable. Industrial supplier fallbacks expand the supply pool in a way most solutions miss.\n\nScore: 79/100\n\nFollow-up: How do you prevent the WhatsApp group from becoming chaotic during a crisis — what's the protocol to avoid conflicting requests coming in simultaneously?",
+        score: 79,
+        submittedAt: new Date(Date.now() - 18 * 60 * 1000).toISOString(),
+        _private: { name: "Deepak Verma", college: "Bundelkhand University, Jhansi" }
+      },
+      {
+        id: 1005,
+        corp: "BHARAT AGRI-FLEET NETWORK",
+        challenge: "How can regional grain trucks eliminate 42% of their empty return journeys?",
+        answer: "Create a reverse logistics marketplace specifically for rural-to-urban corridors. Farmers know the truck schedule — they already load grain onto it. On the return trip, the same farmers can pre-book space for inputs: seeds, tools, construction material. A simple feature in the existing booking app handles matching. Return cargo revenue splits 70-30 between the fleet and the booking platform.",
+        geminiResponse: "Strong marketplace framing — you've identified that farmers already have an established relationship with truckers, which lowers the adoption barrier significantly. The 70-30 split is a concrete, reasonable number that shows commercial thinking.\n\nScore: 86/100\n\nFollow-up: What happens when a farmer books return space but the truck is delayed or changes route — what's the compensation or rescheduling mechanism to maintain trust?",
+        score: 86,
+        submittedAt: new Date(Date.now() - 8 * 60 * 1000).toISOString(),
+        _private: { name: "Pooja Agarwal", college: "GLA University, Mathura" }
+      },
+      {
+        id: 1006,
+        corp: "ZING ELECTRIC MOBILITY",
+        challenge: "How can a city's electric scooter fleet prevent battery damage during 46°C summer heatwaves?",
+        answer: "Two-part answer: first, add a simple rule that scooters with battery temp above 38°C are automatically speed-capped at 25 kmph and routed back to a nearby charging point marked as shaded. Second, schedule high-demand slots for early morning and evening, and give a ₹30 discount for off-peak bookings. This spreads the load without any new hardware. Software only.",
+        geminiResponse: "Two-layer thinking — thermal detection plus time-of-use pricing — is the right approach. The automatic speed cap is a sound safety mechanism that also trains users toward better charging habits over time.\n\nScore: 82/100\n\nFollow-up: Your solution relies on scooters having real-time battery temperature sensors. If older models in the fleet don't have this, how would you retrofit or work around the gap?",
+        score: 82,
+        submittedAt: new Date(Date.now() - 3 * 60 * 1000).toISOString(),
+        _private: { name: "Karan Singh", college: "Galgotias University, Greater Noida" }
+      }
+    ];
+
+    const COLORS = [
+      { bg: 'rgba(0,245,212,0.15)', text: '#00F5D4' },
+      { bg: 'rgba(255,184,0,0.15)', text: '#FFB800' },
+      { bg: 'rgba(124,58,237,0.15)', text: '#A78BFA' },
+      { bg: 'rgba(16,185,129,0.15)', text: '#10B981' },
+      { bg: 'rgba(244,63,94,0.15)', text: '#FB7185' },
+      { bg: 'rgba(59,130,246,0.15)', text: '#60A5FA' }
+    ];
+
+    let allSubmissions = [];
+    let activeFilter = 'ALL';
+    let selectedId = null;
+    let requestedIds = new Set(JSON.parse(localStorage.getItem('kom_contacted') || '[]'));
+
+    function loadSubmissions() {
+      const live = JSON.parse(localStorage.getItem('kom_submissions') || '[]');
+      // Merge seed + live, deduplicate by id
+      const liveIds = new Set(live.map(s => s.id));
+      allSubmissions = [...live, ...SEED.filter(s => !liveIds.has(s.id))];
+      allSubmissions.sort((a, b) => (b.score || 0) - (a.score || 0));
+      renderAll();
+    }
+
+    function filterCorp(corp) {
+      activeFilter = corp;
+      document.querySelectorAll('.corp-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      renderAll();
+    }
+
+    function getFiltered() {
+      if (activeFilter === 'ALL') return allSubmissions;
+      return allSubmissions.filter(s => s.corp.toUpperCase().includes(activeFilter));
+    }
+
+    function renderAll() {
+      const list = getFiltered();
+      updateStats(list);
+      const container = document.getElementById('submissions-list');
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="empty-state">
+          <h3>No submissions yet for this company</h3>
+          <p>Submissions will appear here as students answer on their phones.<br>
+          <a href="student.html">Try submitting an answer →</a></p>
+        </div>`;
+        return;
+      }
+
+      container.innerHTML = list.map((s, i) => {
+        const col = COLORS[i % COLORS.length];
+        const score = s.score || 75;
+        const barColor = score >= 85 ? '#10B981' : score >= 70 ? '#FFB800' : '#F43F5E';
+        const excerpt = (s.answer || '').substring(0, 140) + '...';
+        const timeAgo = getTimeAgo(s.submittedAt);
+        const isNew = (Date.now() - new Date(s.submittedAt).getTime()) < 2 * 60 * 60 * 1000;
+        const isSelected = s.id === selectedId;
+        const contacted = requestedIds.has(s.id);
+
+        return `<div class="sub-card ${isSelected ? 'selected' : ''}" onclick="selectSubmission(${s.id})">
+          <div class="sub-card-header">
+            <div class="anon-avatar" style="background:${col.bg}; color:${col.text};">
+              #${String(i + 1).padStart(2, '0')}
+            </div>
+            <div>
+              <div class="anon-id">Applicant #${String(i + 1).padStart(3, '0')}</div>
+              <div style="font-size:0.72rem; color:var(--muted); font-family:var(--mono);">${s.corp.split(' ')[0]} Challenge</div>
+            </div>
+            <div class="sub-time">${timeAgo}</div>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar-label">
+              <span>Gemini Score</span>
+              <span style="color:${barColor}; font-weight:700;">${score}/100</span>
+            </div>
+            <div class="score-bar"><div class="score-bar-fill" style="width:${score}%; background:${barColor};"></div></div>
+          </div>
+          <div class="sub-excerpt">${excerpt}</div>
+          <div class="sub-card-footer">
+            <span class="tag tag-tier">${score >= 85 ? 'TOP TIER' : score >= 70 ? 'SHORTLISTED' : 'REVIEW'}</span>
+            ${isNew ? '<span class="tag tag-new">NEW</span>' : ''}
+            <button class="btn-contact ${contacted ? 'requested' : ''}" onclick="event.stopPropagation(); requestContact(${s.id})">
+              ${contacted ? 'Requested ✓' : 'Request Contact'}
+            </button>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    function updateStats(list) {
+      document.getElementById('stat-total').textContent = list.length;
+      const shortlisted = list.filter(s => (s.score || 0) >= 70).length;
+      document.getElementById('stat-shortlisted').textContent = shortlisted;
+      const avg = list.length > 0 ? Math.round(list.reduce((a, s) => a + (s.score || 75), 0) / list.length) : 0;
+      document.getElementById('stat-avg').textContent = avg ? `${avg}/100` : '—';
+      document.getElementById('count-badge').textContent = list.length;
+    }
+
+    function selectSubmission(id) {
+      selectedId = id;
+      const s = allSubmissions.find(x => x.id === id);
+      if (!s) return;
+      renderAll();
+
+      const idx = allSubmissions.indexOf(s);
+      const col = COLORS[idx % COLORS.length];
+      const score = s.score || 75;
+      const barColor = score >= 85 ? '#10B981' : score >= 70 ? '#FFB800' : '#F43F5E';
+      const contacted = requestedIds.has(s.id);
+
+      document.getElementById('detail-placeholder').style.display = 'none';
+      document.getElementById('detail-content').style.display = 'block';
+      document.getElementById('detail-content').innerHTML = `
+        <div class="detail-anon">
+          <div class="detail-avatar" style="background:${col.bg}; color:${col.text};">
+            #${String(idx + 1).padStart(2, '0')}
+          </div>
+          <div class="detail-id">Applicant #${String(idx + 1).padStart(3, '0')}</div>
+          <div class="detail-college">College: 🔒 Hidden until contact requested</div>
+        </div>
+
+        <div class="detail-score-big" style="color:${barColor};">${score}<span style="font-size:1rem; color:var(--muted);">/100</span></div>
+        <div class="score-bar" style="margin-bottom:1rem;">
+          <div class="score-bar-fill" style="width:${score}%; background:${barColor};"></div>
+        </div>
+
+        <div class="detail-section">
+          <div class="dl">CHALLENGE</div>
+          <div class="dt" style="color:var(--amber); font-size:0.84rem;">${s.challenge}</div>
+        </div>
+
+        <div class="detail-section">
+          <div class="dl">STUDENT'S ANSWER</div>
+          <div class="dt">${s.answer}</div>
+        </div>
+
+        <div class="gemini-badge">
+          <div class="gb-header">✦ GEMINI EVALUATION</div>
+          ${(s.geminiResponse || 'No evaluation available.').replace(/\n/g, '<br>')}
+        </div>
+
+        <button class="btn-contact-full ${contacted ? 'requested' : ''}" onclick="requestContact(${s.id})">
+          ${contacted ? '✓ Contact Request Sent — Student Will Hear from KOM' : '📩 Request to Contact This Student'}
+        </button>
+        <div class="privacy-note">
+          ${contacted
+            ? `Student's name and college will be shared with you within 24 hours by the KOM team.`
+            : `Clicking this reveals the student's name and college to you. The student is notified by KOM.`}
+        </div>
+      `;
+    }
+
+    function requestContact(id) {
+      requestedIds.add(id);
+      localStorage.setItem('kom_contacted', JSON.stringify([...requestedIds]));
+      renderAll();
+      if (selectedId === id) selectSubmission(id);
+    }
+
+    function getTimeAgo(iso) {
+      if (!iso) return 'recently';
+      const diff = Date.now() - new Date(iso).getTime();
+      const m = Math.floor(diff / 60000);
+      if (m < 1) return 'just now';
+      if (m < 60) return `${m}m ago`;
+      const h = Math.floor(m / 60);
+      if (h < 24) return `${h}h ago`;
+      return `${Math.floor(h / 24)}d ago`;
+    }
+
+    // Initial load
+    loadSubmissions();
+
+    // Refresh every 30s to pick up new localStorage submissions
+    setInterval(loadSubmissions, 30000);
+  </script>
+
+</body>
+</html>

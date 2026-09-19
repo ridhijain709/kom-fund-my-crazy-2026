@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>KOM — Answer a Challenge</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0B0F19;
+      --card: #131929;
+      --border: #1E2D45;
+      --amber: #FFB800;
+      --cyan: #00F5D4;
+      --green: #10B981;
+      --red: #F43F5E;
+      --text: #E2E8F0;
+      --muted: #64748B;
+      --mono: 'Courier New', monospace;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── TOP BAR ─── */
+    .topbar {
+      background: #080C15;
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .topbar .brand { font-family: var(--mono); font-size: 0.8rem; color: var(--amber); font-weight: 700; letter-spacing: 0.1em; }
+    .topbar .live-dot { display: flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; color: var(--cyan); font-family: var(--mono); }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 1.4s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ─── MAIN CONTENT ─── */
+    .wrap { flex: 1; padding: 1.4rem 1.2rem; max-width: 520px; margin: 0 auto; width: 100%; }
+
+    /* ─── COMPANY BADGE ─── */
+    .company-badge {
+      background: linear-gradient(135deg, #0F172A, #1E293B);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1.2rem;
+    }
+    .company-badge .label { font-size: 0.65rem; font-family: var(--mono); color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+    .company-badge .corp-name { font-size: 1rem; font-weight: 700; color: var(--amber); margin-bottom: 0.5rem; }
+    .company-badge .challenge { font-size: 0.9rem; color: var(--text); line-height: 1.5; }
+
+    /* ─── SECTION HEADER ─── */
+    .section-label {
+      font-size: 0.65rem;
+      font-family: var(--mono);
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    /* ─── INPUT FIELDS ─── */
+    .field { margin-bottom: 1rem; }
+    input[type="text"], textarea {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    input[type="text"]:focus, textarea:focus { border-color: var(--cyan); }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    textarea { height: 140px; line-height: 1.6; }
+
+    /* ─── CHAR COUNT ─── */
+    .char-count { text-align: right; font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; font-family: var(--mono); }
+    .char-count.warn { color: var(--amber); }
+
+    /* ─── SUBMIT BUTTON ─── */
+    .btn-submit {
+      width: 100%;
+      background: var(--amber);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 0.95rem;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s, transform 0.1s;
+      margin-top: 0.4rem;
+    }
+    .btn-submit:hover { opacity: 0.9; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+
+    /* ─── LOADING STATE ─── */
+    .loading-bar {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      margin-top: 1rem;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--cyan);
+    }
+    .loading-bar .dots::after {
+      content: '...';
+      animation: ellipsis 1.2s steps(4, end) infinite;
+    }
+    @keyframes ellipsis { 0%{content:'.'} 33%{content:'..'} 66%{content:'...'} }
+
+    /* ─── GEMINI RESPONSE CARD ─── */
+    .response-card {
+      display: none;
+      background: #0A1628;
+      border: 1px solid var(--cyan);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-top: 1rem;
+    }
+    .response-card .r-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .gemini-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--cyan), #7C3AED);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+    .r-header .title { font-size: 0.75rem; font-family: var(--mono); color: var(--cyan); font-weight: 700; letter-spacing: 0.08em; }
+    .r-header .score-pill {
+      margin-left: auto;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--green);
+      border-radius: 20px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--green);
+      font-family: var(--mono);
+    }
+    .r-body { font-size: 0.92rem; line-height: 1.65; color: var(--text); white-space: pre-wrap; }
+    .r-body strong { color: var(--amber); }
+
+    /* ─── FOLLOW-UP ─── */
+    .followup-box { margin-top: 1rem; display: none; }
+    .followup-box textarea { height: 90px; }
+    .btn-followup {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s;
+    }
+    .btn-followup:hover { background: rgba(0,245,212,0.08); }
+
+    /* ─── CONFIRMATION ─── */
+    .confirmation {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+    .confirmation .check { font-size: 3rem; margin-bottom: 0.8rem; }
+    .confirmation h2 { font-size: 1.1rem; color: var(--green); margin-bottom: 0.5rem; }
+    .confirmation p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .confirmation .anon-note {
+      background: rgba(255,184,0,0.08);
+      border: 1px solid rgba(255,184,0,0.2);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      color: var(--amber);
+      line-height: 1.5;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+
+    /* ─── ERROR ─── */
+    .error-msg { display: none; color: var(--red); font-size: 0.82rem; margin-top: 0.5rem; font-family: var(--mono); }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <span class="brand">⚡ KOM</span>
+    <span class="live-dot"><span class="dot"></span> LIVE CHALLENGE</span>
+  </div>
+
+  <div class="wrap" id="main-form">
+
+    <!-- Company Challenge Card -->
+    <div class="company-badge" id="challenge-card">
+      <div class="label">TODAY'S CHALLENGE FROM</div>
+      <div class="corp-name" id="corp-name">APEX MEDICAL LOGISTICS CORP</div>
+      <div class="challenge" id="challenge-text">
+        How can an urban hospital network ensure continuous oxygen supply when the main power grid fails — without buying new diesel trucks?
+      </div>
+    </div>
+
+    <!-- Your Name -->
+    <div class="field">
+      <span class="section-label">YOUR NAME</span>
+      <input type="text" id="input-name" placeholder="e.g. Priya Sharma" maxlength="80">
+    </div>
+
+    <!-- College -->
+    <div class="field">
+      <span class="section-label">YOUR COLLEGE</span>
+      <input type="text" id="input-college" placeholder="e.g. Agra Engineering College" maxlength="120">
+      <div style="font-size:0.72rem; color: var(--muted); margin-top:0.35rem; font-family: var(--mono);">
+        🔒 Your college name is hidden from the company. You're judged only on your answer.
+      </div>
+    </div>
+
+    <!-- Answer -->
+    <div class="field">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+        <span class="section-label" style="margin-bottom:0;">YOUR ANSWER (min 40 words)</span>
+        <button type="button" id="btn-voice-input" onclick="toggleSpeechRecognition()" style="background: rgba(0, 245, 212, 0.12); border: 1px solid var(--cyan); color: var(--cyan); border-radius: 4px; padding: 0.2rem 0.6rem; font-size: 0.72rem; font-family: var(--mono); cursor: pointer;">
+          🎙️ Voice Dictate
+        </button>
+      </div>
+      <textarea id="input-answer" placeholder="Write your thinking here. What would you actually do? How? Why would it work?" oninput="updateCount()"></textarea>
+      <div class="char-count" id="char-count">0 words</div>
+    </div>
+
+    <div class="error-msg" id="error-msg">Please fill in your name and write at least 40 words.</div>
+
+    <!-- Loading -->
+    <div class="loading-bar" id="loading-bar">
+      🤖 Gemini is reading your answer<span class="dots"></span>
+    </div>
+
+    <!-- Submit -->
+    <button class="btn-submit" id="btn-submit" onclick="submitAnswer()">
+      Submit My Answer →
+    </button>
+
+    <!-- Gemini Response -->
+    <div class="response-card" id="response-card">
+      <div class="r-header">
+        <div class="gemini-icon">✦</div>
+        <div class="title">GEMINI COACHING RESPONSE</div>
+        <div class="score-pill" id="score-pill">—</div>
+      </div>
+      <div class="r-body" id="response-body"></div>
+
+      <!-- Follow-up question -->
+      <div class="followup-box" id="followup-box">
+        <span class="section-label" style="margin-top:1rem; display:block;">YOUR FOLLOW-UP ANSWER</span>
+        <textarea id="followup-input" placeholder="Answer Gemini's question to strengthen your application..."></textarea>
+        <button class="btn-followup" onclick="sendFollowup()">Send Follow-up →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Confirmation Screen -->
+  <div class="confirmation" id="confirmation">
+    <div class="check">✅</div>
+    <h2>Answer Submitted!</h2>
+    <p>Your response has been sent to the KOM system and will be reviewed for <strong id="conf-corp"></strong>.</p>
+    <div class="anon-note">
+      🔒 Your name and college are hidden. The company sees only your thinking — scored and anonymised by Gemini. If they want to connect, you'll hear from KOM directly.
+    </div>
+  </div>
+
+  <footer>
+    <a href="index.html">KOM Simulator</a> &nbsp;|&nbsp;
+    <a href="company.html">Company View</a> &nbsp;|&nbsp;
+    Google FMC 2026 • #FMC-2026-KOM-8842
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────────────────
+    // CONFIG — paste your Gemini API key here
+    // ─────────────────────────────────────────────────────────
+    
+        function getGeminiApiKey() {
+      const stored = localStorage.getItem('kom_gemini_api_key');
+      if (stored && stored.trim().length > 10) return stored.trim();
+      try {
+        return atob('QVEuQWI4Uk42TDRFV09CdzE3SFdlLU1XS1I1cDlhUkExX3g1NE9VMzBFOGpJTmRWZmdKTmc=');
+      } catch(e) { return ''; }
+    }
+    function getGeminiUrl() {
+      return `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${getGeminiApiKey()}`;
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // CHALLENGE DATA — 3 company cases, pick by URL param ?case=0/1/2
+    // ─────────────────────────────────────────────────────────
+    const CHALLENGES = [
+      {
+        corp: "APEX MEDICAL LOGISTICS CORP",
+        challenge: "How can an urban hospital network ensure continuous oxygen supply when the main power grid fails — without buying new diesel trucks?"
+      },
+      {
+        corp: "BHARAT AGRI-FLEET NETWORK",
+        challenge: "How can regional grain trucks eliminate 42% of their empty return journeys without building centralised storage depots?"
+      },
+      {
+        corp: "ZING ELECTRIC MOBILITY",
+        challenge: "How can a city's electric scooter fleet prevent battery damage during 46°C summer heatwaves — at zero extra cost?"
+      }
+    ];
+
+    // Load challenge from URL param
+    const params = new URLSearchParams(window.location.search);
+    const caseIdx = Math.min(parseInt(params.get('case') || '0'), 2);
+    const activeCase = CHALLENGES[caseIdx];
+    document.getElementById('corp-name').textContent = activeCase.corp;
+    document.getElementById('challenge-text').textContent = activeCase.challenge;
+
+    let geminiFollowUpQuestion = "";
+    let wordCount = 0;
+
+    function updateCount() {
+      const text = document.getElementById('input-answer').value.trim();
+      wordCount = text ? text.split(/\s+/).length : 0;
+      const el = document.getElementById('char-count');
+      el.textContent = `${wordCount} word${wordCount !== 1 ? 's' : ''}`;
+      el.classList.toggle('warn', wordCount > 0 && wordCount < 40);
+    }
+
+    async function callGemini(prompt) {
+      const res = await fetch(getGeminiUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { maxOutputTokens: 2048, thinkingConfig: { thinkingBudget: 0 }, temperature: 0.7 }
+        })
+      });
+      if (!res.ok) throw new Error(`Gemini API error: ${res.status}`);
+      const data = await res.json();
+      return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response received.";
+    }
+
+    async function submitAnswer() {
+      const name = document.getElementById('input-name').value.trim();
+      const college = document.getElementById('input-college').value.trim();
+      const answer = document.getElementById('input-answer').value.trim();
+      const errEl = document.getElementById('error-msg');
+
+      if (!name || wordCount < 40) {
+        errEl.style.display = 'block';
+        errEl.textContent = !name
+          ? 'Please enter your name.'
+          : `Your answer needs at least 40 words. You have ${wordCount}.`;
+        return;
+      }
+      errEl.style.display = 'none';
+
+      // Disable submit, show loading
+      document.getElementById('btn-submit').disabled = true;
+      document.getElementById('loading-bar').style.display = 'block';
+
+      const prompt = `You are a talent evaluator for KOM — a platform that gives students from any college a fair shot at real company jobs.
+
+A student riding public transit has just answered this company challenge:
+
+COMPANY: ${activeCase.corp}
+CHALLENGE: ${activeCase.challenge}
+STUDENT'S ANSWER: ${answer}
+
+Do exactly these 3 things:
+
+1. In 2 sentences, tell the student what was genuinely strong about their thinking. Be specific — mention details from their actual answer.
+
+2. Give a score out of 100. Score based on: Clarity of thinking (30 pts), Practical feasibility (40 pts), Original angle (30 pts). Write it as "Score: X/100" on its own line.
+
+3. Ask ONE sharp follow-up question to push their thinking one level deeper. Make it specific to what they wrote.
+
+Keep your total response under 150 words. Write like a sharp mentor — direct, warm, honest. No fluff.`;
+
+      try {
+        const raw = await callGemini(prompt);
+
+        // Parse score
+        const scoreMatch = raw.match(/Score:\s*(\d+)\/100/i);
+        const score = scoreMatch ? parseInt(scoreMatch[1]) : null;
+
+        // Extract follow-up question (last sentence with ?)
+        const sentences = raw.split(/(?<=[.!?])\s+/);
+        const questionLine = sentences.filter(s => s.includes('?')).pop() || "";
+        geminiFollowUpQuestion = questionLine;
+
+        // Display
+        document.getElementById('loading-bar').style.display = 'none';
+        const card = document.getElementById('response-card');
+        card.style.display = 'block';
+        document.getElementById('response-body').textContent = raw;
+        if (score !== null) {
+          const pill = document.getElementById('score-pill');
+          pill.textContent = `${score}/100`;
+          pill.style.color = score >= 80 ? 'var(--green)' : score >= 60 ? 'var(--amber)' : 'var(--red)';
+        }
+
+        // Show follow-up box if question found
+        if (geminiFollowUpQuestion) {
+          document.getElementById('followup-box').style.display = 'block';
+        }
+
+        // Save to localStorage (anonymised for company view)
+        saveSubmission(name, college, answer, raw, score);
+
+      } catch (err) {
+        document.getElementById('loading-bar').style.display = 'none';
+        document.getElementById('btn-submit').disabled = false;
+        errEl.style.display = 'block';
+        errEl.textContent = `Error calling Gemini: ${err.message}. Check that the API key is set correctly.`;
+      }
+    }
+
+    async function sendFollowup() {
+      const input = document.getElementById('followup-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.disabled = true;
+      document.querySelector('.btn-followup').disabled = true;
+      document.querySelector('.btn-followup').textContent = 'Sending...';
+
+      const answer = document.getElementById('input-answer').value.trim();
+      const prompt = `A student answered a KOM challenge for ${activeCase.corp}.
+Their original answer: "${answer}"
+Gemini asked them: "${geminiFollowUpQuestion}"
+Their follow-up: "${text}"
+
+In 2 sentences, tell them what this addition showed. Then confirm whether their solution is now strong enough to shortlist. End with "✅ Shortlisted for company review." or "Keep developing your idea.". Be brief and direct.`;
+
+      try {
+        const raw = await callGemini(prompt);
+        const body = document.getElementById('response-body');
+        body.textContent += `\n\n— YOUR FOLLOW-UP —\n${text}\n\n— GEMINI:\n${raw}`;
+
+        // Show confirmation
+        document.getElementById('followup-box').style.display = 'none';
+        setTimeout(showConfirmation, 1000);
+      } catch (e) {
+        document.querySelector('.btn-followup').disabled = false;
+        document.querySelector('.btn-followup').textContent = 'Send Follow-up →';
+      }
+    }
+
+    function saveSubmission(name, college, answer, geminiResponse, score) {
+      const submissions = JSON.parse(localStorage.getItem('kom_submissions') || '[]');
+      submissions.unshift({
+        id: Date.now(),
+        corp: activeCase.corp,
+        challenge: activeCase.challenge,
+        answer,
+        geminiResponse,
+        score,
+        submittedAt: new Date().toISOString(),
+        // Store name/college separately — company view only gets anonymised data
+        _private: { name, college }
+      });
+      localStorage.setItem('kom_submissions', JSON.stringify(submissions.slice(0, 50)));
+
+      // Show confirmation after a short delay
+      setTimeout(showConfirmation, 2500);
+    }
+
+    function showConfirmation() {
+      document.getElementById('main-form').style.display = 'none';
+      const conf = document.getElementById('confirmation');
+      conf.style.display = 'block';
+      document.getElementById('conf-corp').textContent = activeCase.corp;
+    }
+  
+    // Voice Dictation (Web Speech API)
+    let recognition = null;
+    let isDictating = false;
+    function toggleSpeechRecognition() {
+      const btn = document.getElementById('btn-voice-input');
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("Speech recognition not supported in this browser. Please type your answer.");
+        return;
+      }
+      if (!recognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-IN';
+        recognition.onresult = (event) => {
+          let transcript = '';
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+          }
+          const textarea = document.getElementById('input-answer');
+          textarea.value = (textarea.value + ' ' + transcript).trim();
+          updateCount();
+        };
+        recognition.onerror = (e) => {
+          console.error("Speech error", e);
+          isDictating = false;
+          btn.textContent = "🎙️ Voice Dictate";
+          btn.style.background = "rgba(0, 245, 212, 0.12)";
+        };
+        recognition.onend = () => {
+          isDictating = false;
+          btn.textContent = "🎙️ Voice Dictate";
+          btn.style.background = "rgba(0, 245, 212, 0.12)";
+        };
+      }
+
+      if (!isDictating) {
+        try {
+          recognition.start();
+          isDictating = true;
+          btn.textContent = "⏹️ Stop Dictating";
+          btn.style.background = "rgba(244, 63, 94, 0.25)";
+        } catch(e) { console.error(e); }
+      } else {
+        recognition.stop();
+        isDictating = false;
+        btn.textContent = "🎙️ Voice Dictate";
+        btn.style.background = "rgba(0, 245, 212, 0.12)";
+      }
+    }
+    
+  </script>
+</body>
+</html>

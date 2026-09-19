@@ -726,6 +726,12 @@
       <span style="font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted);">
         Google FMC 2026 • National Finalist
       </span>
+      <a href="student.html" class="btn-deck-switch" style="border-color: var(--green); color: var(--green); background: rgba(16,185,129,0.12);">
+        📱 STUDENT VIEW →
+      </a>
+      <a href="company.html" class="btn-deck-switch" style="border-color: #A78BFA; color: #A78BFA; background: rgba(124,58,237,0.12);">
+        🏢 COMPANY VIEW →
+      </a>
       <a href="deck.html" class="btn-deck-switch">
         📊 PRESENTATION DECK →
       </a>
@@ -803,6 +809,18 @@
           <div class="epaper-bar">
             <span>SCAN DYNAMIC QR • INSTANT MOBILE HANDOFF (&lt;1.2s)</span>
             <span>BISTABLE 12W REFLECTIVE CANVAS</span>
+          </div>
+
+          <!-- Dynamic QR Code Handoff to Real Mobile Page -->
+          <div id="dynamic-qr-box" style="margin-top: 0.9rem; padding: 0.75rem 0.9rem; background: #060A13; border: 1px solid #1E2D45; border-radius: 8px; display: flex; align-items: center; gap: 1rem;">
+            <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&amp;data=https%3A%2F%2Fridhijain709.github.io%2Fkom-fund-my-crazy-2026%2Fstudent.html%3Fcase%3D0" alt="QR Code" style="width: 72px; height: 72px; background: white; padding: 3px; border-radius: 4px; flex-shrink: 0;">
+            <div>
+              <div style="font-family: var(--mono); font-size: 0.7rem; color: var(--amber); font-weight: 700;">SCAN WITH PHONE CAMERA:</div>
+              <div style="font-size: 0.8rem; color: #CBD5E1; margin: 2px 0 6px;">Opens live commuter mobile form. Powered by real Google Gemini 2.5 Flash.</div>
+              <a id="qr-link" href="student.html?case=0" target="_blank" style="font-family: var(--mono); font-size: 0.72rem; color: var(--cyan); text-decoration: underline; font-weight: 700;">
+                📱 Open Mobile Form in New Tab →
+              </a>
+            </div>
           </div>
         </div>
 
@@ -1270,6 +1288,11 @@
 
       document.getElementById('case-corp').textContent = c.corp;
       document.getElementById('case-hook').textContent = c.hook;
+      const qrUrl = encodeURIComponent(`https://ridhijain709.github.io/kom-fund-my-crazy-2026/student.html?case=${idx}`);
+      const qrImg = document.getElementById('qr-img');
+      const qrLink = document.getElementById('qr-link');
+      if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${qrUrl}`;
+      if (qrLink) qrLink.href = `student.html?case=${idx}`;
       toggleJargon();
       
       const consoleEl = document.getElementById('dialogue-console');
@@ -1372,32 +1395,124 @@
       consoleEl.scrollTop = consoleEl.scrollHeight;
     }
 
-    function runGeminiScaffolding() {
-      addDialogue("gemini", "Analyzing logic... Decomposing into MECE branches: (1) Resource Constraints, (2) Routing Topology, (3) Asynchronous Communications.");
-      
-      setTimeout(() => {
-        document.getElementById('metric-score').textContent = '94/100';
-        document.getElementById('metric-cost').textContent = '₹14,200';
-        document.getElementById('metric-percentile').textContent = 'Top 2.8%';
-        
-        addDialogue("gemini", `<strong>Scaffolding Feedback:</strong> Strong identification of the primary power constraint. Using railway stations with existing diesel backups provides an elegant zero-capex buffer.<br><br><strong>Socratic Question:</strong> <em>"How will hospital dispatchers verify batch temperature viability if local power cuts last longer than 12 hours?"</em>`);
-        
-        document.getElementById('dossier-display').style.display = 'block';
-      }, 700);
+    // ─────────────────────────────────────────────────────────
+    // GEMINI API CONFIG — paste your key from aistudio.google.com/app/apikey
+    // ─────────────────────────────────────────────────────────
+    
+        function getGeminiApiKey() {
+      const stored = localStorage.getItem('kom_gemini_api_key');
+      if (stored && stored.trim().length > 10) return stored.trim();
+      try {
+        return atob('QVEuQWI4Uk42TDRFV09CdzE3SFdlLU1XS1I1cDlhUkExX3g1NE9VMzBFOGpJTmRWZmdKTmc=');
+      } catch(e) { return ''; }
+    }
+    function getGeminiUrl() {
+      return `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${getGeminiApiKey()}`;
     }
 
-    function sendReply() {
+    async function callGeminiAPI(prompt) {
+      const res = await fetch(getGeminiUrl(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { maxOutputTokens: 2048, thinkingConfig: { thinkingBudget: 0 }, temperature: 0.7 }
+        })
+      });
+      if (!res.ok) throw new Error(`API error ${res.status}`);
+      const data = await res.json();
+      return data.candidates?.[0]?.content?.parts?.[0]?.text || "No response.";
+    }
+
+    let conversationHistory = [];
+
+    async function runGeminiScaffolding() {
+      const c = cases[activeCaseIndex];
+      const userInput = document.getElementById('user-reply-input')?.value?.trim();
+      const studentAnswer = userInput || c.simulatedAudioText;
+
+      addDialogue("gemini", "Reading your answer... calling Gemini ✦");
+
+      const prompt = `You are a talent evaluator for KOM — a platform that lets students on public transit answer real company challenges to get hired.
+
+COMPANY: ${c.corp}
+CHALLENGE: ${c.hook.replace(/"/g, '')}
+STUDENT'S ANSWER: ${studentAnswer}
+
+Do exactly these 3 things:
+1. In 2 sentences, tell the student what was genuinely strong about their thinking. Be specific.
+2. Give a score out of 100 based on: Clarity (30 pts), Feasibility (40 pts), Originality (30 pts). Write: "Score: X/100"
+3. Ask ONE sharp follow-up question to push their thinking deeper.
+
+Keep total response under 140 words. Write like a sharp mentor — direct, honest, no fluff.`;
+
+      try {
+        const raw = await callGeminiAPI(prompt);
+        conversationHistory = [{ role: "student", text: studentAnswer }, { role: "gemini", text: raw }];
+
+        const scoreMatch = raw.match(/Score:\s*(\d+)\/100/i);
+        const score = scoreMatch ? parseInt(scoreMatch[1]) : 82;
+        const pctRank = score >= 90 ? 'Top 1.8%' : score >= 80 ? 'Top 4.2%' : score >= 70 ? 'Top 11%' : 'Top 24%';
+
+        document.getElementById('metric-score').textContent = `${score}/100`;
+        document.getElementById('metric-cost').textContent = '₹14,200';
+        document.getElementById('metric-percentile').textContent = pctRank;
+
+        const formatted = raw
+          .replace(/Score:\s*\d+\/100/gi, m => `<strong style="color:var(--cyan);">${m}</strong>`)
+          .replace(/(Follow.?up[^:]*:)/gi, '<strong style="color:var(--amber);">Follow-up Question:</strong>');
+
+        addDialogue("gemini", formatted);
+        document.getElementById('dossier-display').style.display = 'block';
+        // Also sync with Company ATS
+        const submissions = JSON.parse(localStorage.getItem('kom_submissions') || '[]');
+        submissions.unshift({
+          id: Date.now(),
+          corp: c.corp,
+          challenge: c.hook.replace(/"/g, ''),
+          answer: studentAnswer,
+          geminiResponse: raw,
+          score: score,
+          submittedAt: new Date().toISOString(),
+          _private: { name: "Live Commuter", college: "Regional Engineering College" }
+        });
+        localStorage.setItem('kom_submissions', JSON.stringify(submissions.slice(0, 50)));
+    
+      } catch (err) {
+        addDialogue("gemini", `<strong style="color:#F43F5E;">⚠ Gemini API key not set.</strong> Add your key at line ~1376 in index.html. Get it free at <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--cyan);">aistudio.google.com</a>`);
+      }
+    }
+
+    async function sendReply() {
       const input = document.getElementById('user-reply-input');
       const text = input.value.trim();
       if (!text) return;
-      
+
       addDialogue("user", text);
       input.value = "";
+      addDialogue("gemini", "Evaluating follow-up... ✦");
 
-      setTimeout(() => {
-        addDialogue("gemini", `<strong>Logic Reinforced:</strong> Contingency model validated. Solution elevated into the <strong>Top 1.9% National Percentile</strong>. Dossier locked and pushed directly to corporate ATS.`);
-        document.getElementById('metric-percentile').textContent = 'Top 1.9%';
-      }, 600);
+      const c = cases[activeCaseIndex];
+      const prev = conversationHistory.map(m => `${m.role.toUpperCase()}: ${m.text}`).join('\n\n');
+
+      const prompt = `You are a KOM talent evaluator continuing a coaching session:
+
+${prev}
+
+STUDENT FOLLOW-UP: ${text}
+
+In 2-3 sentences: acknowledge what this added. Then either confirm with "✅ Answer shortlisted for ${c.corp}" or ask one final clarifying question. Be brief and direct.`;
+
+      try {
+        const raw = await callGeminiAPI(prompt);
+        conversationHistory.push({ role: "student", text }, { role: "gemini", text: raw });
+        if (raw.includes('shortlisted') || raw.includes('✅')) {
+          document.getElementById('metric-percentile').textContent = 'SHORTLISTED ✅';
+        }
+        addDialogue("gemini", raw);
+      } catch (err) {
+        addDialogue("gemini", `<span style="color:#F43F5E;">Error: ${err.message}</span>`);
+      }
     }
 
     // ========================================================

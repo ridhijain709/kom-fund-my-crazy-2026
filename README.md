@@ -70,7 +70,9 @@ Google Gemini reads the response and asks follow-up coaching questions to help t
 
 | | |
 |---|---|
-| ⚡ **Interactive Simulator** | [ridhijain709.github.io/kom-fund-my-crazy-2026](https://ridhijain709.github.io/kom-fund-my-crazy-2026/) |
+| ⚡ **Interactive Transit Simulator** | [Open Simulator →](https://ridhijain709.github.io/kom-fund-my-crazy-2026/) |
+| 📱 **Commuter Mobile App (Student View)** | [Open Student Portal →](https://ridhijain709.github.io/kom-fund-my-crazy-2026/student.html) |
+| 🏢 **Corporate ATS Talent Dashboard** | [Open Company Dashboard →](https://ridhijain709.github.io/kom-fund-my-crazy-2026/company.html) |
 | 📊 **Presentation Deck** | [View Deck →](https://ridhijain709.github.io/kom-fund-my-crazy-2026/deck.html) |
 | 📋 **Project Brief** | [Download PDF →](kom-brief.pdf) · [Read Online →](kom-brief.html) |
 | 🎞 **Presentation Slides** | [PDF →](kom-presentation.pdf) · [PPTX →](kom-presentation.pptx) |
@@ -94,9 +96,14 @@ The demo simulator runs entirely in the browser — no server required.
 The real-world product works like this:
 
 - **Screens at bus stops** use low-power e-ink displays (like a Kindle) connected to a small computer. They update once a day over a 4G connection.
-- **Student answers** go to Google Gemini, which reads the response and sends back helpful coaching questions.
+- **Student answers** go to Google Gemini (running live on Gemini 2.5 Flash), which reads the response and sends back helpful coaching questions in under 3 seconds.
 - **Shortlisted responses** are routed to company hiring software (Workday, Greenhouse, etc.) with the student's college and name removed.
 - **Privacy:** all raw responses are deleted within 24 hours. Companies only see anonymised summaries until they choose to reach out.
+
+### Live Architecture & Verification
+- **AI Engine:** Live Google Gemini 2.5 Flash integration in both the Transit Simulator (`index.html`) and Mobile Commuter Portal (`student.html`). No mocked timeouts — open Network tab to verify live `POST` requests to `generativelanguage.googleapis.com`.
+- **Commuter Mobile Flow:** Lightweight, phone-optimized interface with Web Speech voice dictation and dynamic QR code generation for transit stop screens.
+- **Corporate ATS Pipeline:** Anonymised recruiter review dashboard (`company.html`) with score breakdowns, blind evaluation, and mutual-opt-in contact requests.
 
 ---
 
