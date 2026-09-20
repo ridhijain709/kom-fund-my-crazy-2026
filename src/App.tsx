@@ -6,6 +6,7 @@ import { CivicSubmissionDossier } from "./components/CivicSubmissionDossier";
 import { GeminiEcosystemHub } from "./components/GeminiEcosystemHub";
 import { TransitNode3DModel } from "./components/TransitNode3DModel";
 import { VoiceLiveFeedbackAgent } from "./components/VoiceLiveFeedbackAgent";
+import { GitHubDeploymentStatus } from "./components/GitHubDeploymentStatus";
 import {
   ExternalLink,
   ShieldCheck,
@@ -93,34 +94,68 @@ export default function App() {
           activeTab === "pilot" ||
           activeTab === "pitch-deck") && <VisualArtifact />}
 
+        {activeTab === "deployment" && (
+          <div className="space-y-6">
+            <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs">
+              <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 uppercase tracking-wider">
+                <GitBranch className="w-4 h-4 text-emerald-600" />
+                Repository &amp; Production Deployment Telemetry
+              </div>
+              <h2 className="text-xl font-bold text-stone-900 mt-1">
+                Continuous Integration &amp; Cloud Deployment Health
+              </h2>
+              <p className="text-xs sm:text-sm text-stone-600 mt-1">
+                Direct verification of commit history, repository contributors, and issue status from the official project repository.
+              </p>
+            </div>
+
+            <GitHubDeploymentStatus variant="full-section" />
+          </div>
+        )}
+
         {activeTab === "gemini-hub" && <GeminiEcosystemHub />}
       </main>
 
-      {/* Global Footer */}
-      <footer className="border-t border-stone-200 bg-white py-6 text-xs text-stone-500 mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-stone-900">KOM Node</span>
-            <span>•</span>
-            <span>Fund My Crazy 2026 Submission</span>
-            <span>•</span>
-            <span className="text-emerald-700 font-medium flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-              Built with Google Gemini &amp; Antigravity
-            </span>
+      {/* Global Footer with Dynamic Deployment Badge & Repository Telemetry */}
+      <footer className="border-t border-stone-200 bg-white pt-8 pb-6 text-xs text-stone-500 mt-12 space-y-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* Dynamically Updated Badge Displaying Commit Status, Contributor Count & Issue Status */}
+          <div className="mb-6">
+            <GitHubDeploymentStatus variant="footer-embedded" />
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <a
-              href="https://github.com/ridhijain709/kom-fund-my-crazy-2026"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-stone-700 hover:text-stone-950 font-medium transition-colors"
-            >
-              <GitBranch className="w-3.5 h-3.5" />
-              <span>GitHub: ridhijain709/kom-fund-my-crazy-2026</span>
-              <ExternalLink className="w-3 h-3 text-stone-400" />
-            </a>
+          <div className="pt-4 border-t border-stone-100 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-bold text-stone-900">KOM Node</span>
+              <span>•</span>
+              <span>Fund My Crazy 2026 Submission</span>
+              <span>•</span>
+              <span className="text-emerald-700 font-medium flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                Built with Google Gemini &amp; Antigravity
+              </span>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => setActiveTab("deployment")}
+                className="flex items-center gap-1.5 text-stone-700 hover:text-stone-950 font-medium transition-colors cursor-pointer"
+              >
+                <GitBranch className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Dedicated Deployment Section</span>
+              </button>
+              <span>•</span>
+              <a
+                href="https://github.com/ridhijain709/kom-fund-my-crazy-2026"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-stone-700 hover:text-stone-950 font-medium transition-colors"
+              >
+                <GitBranch className="w-3.5 h-3.5" />
+                <span>GitHub: ridhijain709/kom-fund-my-crazy-2026</span>
+                <ExternalLink className="w-3 h-3 text-stone-400" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>

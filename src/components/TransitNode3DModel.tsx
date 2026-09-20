@@ -18,8 +18,123 @@ import {
   ArrowRight,
   Eye,
   Sliders,
+  Palette,
+  Compass,
+  Gauge,
+  Activity,
+  Layers3,
 } from "lucide-react";
 import posterImage from "../assets/images/transit_hub_node_1789885397488.jpg";
+
+export type ModelColorProfileId =
+  | "kinetic-amber"
+  | "cyber-cyan"
+  | "vedic-saffron"
+  | "emerald-matrix";
+
+interface ModelColorProfile {
+  id: ModelColorProfileId;
+  name: string;
+  tagline: string;
+  primaryAccent: string;
+  secondaryAccent: string;
+  canvasBackdrop: string;
+  glowClass: string;
+  filterClass: {
+    twilight: string;
+    day: string;
+    night: string;
+  };
+  pinActiveBg: string;
+  pinInactiveBg: string;
+  pinBorder: string;
+  badgeClass: string;
+  borderAccent: string;
+  chassisMaterial: string;
+}
+
+export const MODEL_COLOR_PROFILES: Record<ModelColorProfileId, ModelColorProfile> = {
+  "kinetic-amber": {
+    id: "kinetic-amber",
+    name: "Solar Obsidian & Kinetic Amber",
+    tagline: "Signature FMC 2026 High-Contrast Civic Archetype",
+    primaryAccent: "#f59e0b",
+    secondaryAccent: "#10b981",
+    canvasBackdrop: "from-stone-950 via-stone-900 to-amber-950/40",
+    glowClass: "bg-amber-500/30 blur-2xl",
+    filterClass: {
+      twilight: "brightness-105 contrast-105 saturate-110",
+      day: "brightness-110 contrast-100 saturate-105",
+      night: "brightness-95 contrast-120 saturate-115 hue-rotate-5",
+    },
+    pinActiveBg: "bg-amber-400 text-stone-950",
+    pinInactiveBg: "bg-stone-900 text-amber-300",
+    pinBorder: "border-amber-400",
+    badgeClass: "bg-amber-500/15 text-amber-300 border-amber-500/40",
+    borderAccent: "border-amber-500/30",
+    chassisMaterial: "Anodized Matte Carbon (Zero-Glare)",
+  },
+  "cyber-cyan": {
+    id: "cyber-cyan",
+    name: "Cyber Transit & Bioluminescent Cyan",
+    tagline: "Electric Neon Night Corridor with High-Visibility E-Paper",
+    primaryAccent: "#06b6d4",
+    secondaryAccent: "#3b82f6",
+    canvasBackdrop: "from-slate-950 via-cyan-950/40 to-slate-950",
+    glowClass: "bg-cyan-500/30 blur-2xl",
+    filterClass: {
+      twilight: "brightness-100 contrast-110 hue-rotate-[170deg] saturate-125",
+      day: "brightness-105 contrast-105 hue-rotate-[160deg] saturate-115",
+      night: "brightness-90 contrast-125 hue-rotate-[185deg] saturate-140",
+    },
+    pinActiveBg: "bg-cyan-400 text-slate-950",
+    pinInactiveBg: "bg-slate-900 text-cyan-300",
+    pinBorder: "border-cyan-400",
+    badgeClass: "bg-cyan-500/15 text-cyan-300 border-cyan-500/40",
+    borderAccent: "border-cyan-500/30",
+    chassisMaterial: "Cobalt Titanium Cladding with Ice-Blue Backlight",
+  },
+  "vedic-saffron": {
+    id: "vedic-saffron",
+    name: "Vedic Saffron & Terracotta Sandstone",
+    tagline: "Regional North-Indian Corridor (Agra • Gorakhpur • Varanasi)",
+    primaryAccent: "#ea580c",
+    secondaryAccent: "#f59e0b",
+    canvasBackdrop: "from-stone-950 via-amber-950/50 to-orange-950/60",
+    glowClass: "bg-orange-500/35 blur-2xl",
+    filterClass: {
+      twilight: "brightness-105 contrast-110 sepia-[0.35] saturate-135 hue-rotate-[-15deg]",
+      day: "brightness-110 contrast-105 sepia-[0.2] saturate-120",
+      night: "brightness-90 contrast-120 sepia-[0.45] saturate-140 hue-rotate-[-10deg]",
+    },
+    pinActiveBg: "bg-orange-500 text-stone-950",
+    pinInactiveBg: "bg-stone-900 text-orange-300",
+    pinBorder: "border-orange-500",
+    badgeClass: "bg-orange-500/15 text-orange-300 border-orange-500/40",
+    borderAccent: "border-orange-500/30",
+    chassisMaterial: "Brushed Vedic Bronze & Sandstone Polycarbonate",
+  },
+  "emerald-matrix": {
+    id: "emerald-matrix",
+    name: "Phosphor Emerald & Tactical Matrix",
+    tagline: "Eco-Kinetic Low-Power Architecture with Monochromatic HUD",
+    primaryAccent: "#10b981",
+    secondaryAccent: "#059669",
+    canvasBackdrop: "from-stone-950 via-emerald-950/30 to-stone-950",
+    glowClass: "bg-emerald-500/30 blur-2xl",
+    filterClass: {
+      twilight: "brightness-100 contrast-115 hue-rotate-[90deg] saturate-120",
+      day: "brightness-105 contrast-105 hue-rotate-[80deg] saturate-110",
+      night: "brightness-85 contrast-130 hue-rotate-[100deg] saturate-135",
+    },
+    pinActiveBg: "bg-emerald-400 text-stone-950",
+    pinInactiveBg: "bg-stone-900 text-emerald-300",
+    pinBorder: "border-emerald-400",
+    badgeClass: "bg-emerald-500/15 text-emerald-300 border-emerald-500/40",
+    borderAccent: "border-emerald-500/30",
+    chassisMaterial: "Recycled Carbon-Graphite Composite (IP67)",
+  },
+};
 
 interface Hotspot {
   id: string;
@@ -42,10 +157,15 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
   onActivateVoiceAgent,
   onExploreBriefs,
 }) => {
+  const [colorProfileId, setColorProfileId] = useState<ModelColorProfileId>("kinetic-amber");
   const [lightingMode, setLightingMode] = useState<"twilight" | "day" | "night">("twilight");
   const [selectedHotspot, setSelectedHotspot] = useState<string>("kiosk-terminal");
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [showColorCustomizer, setShowColorCustomizer] = useState(false);
+  const [solarBloomIntensity, setSolarBloomIntensity] = useState<"subtle" | "high" | "overdrive">("high");
   const [activeTab, setActiveTab] = useState<"interactive-model" | "poster-breakdown" | "specs-matrix">("interactive-model");
+
+  const currentTheme = MODEL_COLOR_PROFILES[colorProfileId];
 
   const hotspots: Hotspot[] = [
     {
@@ -133,9 +253,10 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
 
   return (
     <div className="space-y-6 animate-in fade-in duration-300">
-      {/* Navigation Sub-Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-2 rounded-2xl border border-stone-200 shadow-xs">
-        <div className="flex items-center gap-1">
+      {/* Top Header & Customizer Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-2.5 rounded-2xl border border-stone-200 shadow-xs">
+        {/* Navigation Sub-Tabs */}
+        <div className="flex items-center gap-1 flex-wrap">
           <button
             onClick={() => setActiveTab("interactive-model")}
             className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
@@ -145,7 +266,7 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
             }`}
           >
             <Cpu className="w-3.5 h-3.5 text-amber-400" />
-            <span>3D Shelter Concept Explorer</span>
+            <span>3D Physical Concept &amp; Model Explorer</span>
           </button>
           <button
             onClick={() => setActiveTab("poster-breakdown")}
@@ -171,59 +292,222 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
           </button>
         </div>
 
-        {/* Lighting Mode Selector */}
+        {/* Unique Model Color & Lighting Customization Controls */}
         {activeTab === "interactive-model" && (
-          <div className="flex items-center gap-1.5 bg-stone-100 p-1 rounded-xl text-xs border border-stone-200/80">
-            <span className="text-[10px] text-stone-500 font-mono pl-1 uppercase font-bold">
-              Lighting:
-            </span>
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Unique Color Profile Quick Selector */}
+            <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl border border-stone-200/80">
+              <span className="text-[10px] text-stone-500 font-mono px-1 uppercase font-bold flex items-center gap-1">
+                <Palette className="w-3 h-3 text-stone-600" />
+                Colorway:
+              </span>
+              {(Object.keys(MODEL_COLOR_PROFILES) as ModelColorProfileId[]).map((pid) => {
+                const p = MODEL_COLOR_PROFILES[pid];
+                const isActive = pid === colorProfileId;
+                return (
+                  <button
+                    key={pid}
+                    onClick={() => setColorProfileId(pid)}
+                    title={`${p.name} - ${p.tagline}`}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                      isActive
+                        ? "bg-stone-900 text-white shadow-xs ring-1 ring-stone-700"
+                        : "text-stone-600 hover:text-stone-900 hover:bg-stone-200/60"
+                    }`}
+                  >
+                    <span
+                      className="w-2 h-2 rounded-full ring-1 ring-white/50"
+                      style={{ backgroundColor: p.primaryAccent }}
+                    />
+                    <span className="hidden sm:inline">
+                      {pid === "kinetic-amber"
+                        ? "Amber"
+                        : pid === "cyber-cyan"
+                        ? "Cyber Cyan"
+                        : pid === "vedic-saffron"
+                        ? "Saffron"
+                        : "Emerald"}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Lighting Mode Selector */}
+            <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl text-xs border border-stone-200/80">
+              <button
+                onClick={() => setLightingMode("twilight")}
+                className={`px-2 py-1 rounded-lg text-xs font-medium transition-all ${
+                  lightingMode === "twilight"
+                    ? "bg-amber-500 text-stone-950 font-bold shadow-xs"
+                    : "text-stone-600 hover:text-stone-900"
+                }`}
+              >
+                Twilight
+              </button>
+              <button
+                onClick={() => setLightingMode("day")}
+                className={`px-2 py-1 rounded-lg text-xs font-medium transition-all ${
+                  lightingMode === "day"
+                    ? "bg-white text-stone-900 font-bold shadow-xs"
+                    : "text-stone-600 hover:text-stone-900"
+                }`}
+              >
+                Day
+              </button>
+              <button
+                onClick={() => setLightingMode("night")}
+                className={`px-2 py-1 rounded-lg text-xs font-medium transition-all ${
+                  lightingMode === "night"
+                    ? "bg-stone-900 text-amber-300 font-bold shadow-xs"
+                    : "text-stone-600 hover:text-stone-900"
+                }`}
+              >
+                Night
+              </button>
+            </div>
+
+            {/* Customizer Drawer Toggle */}
             <button
-              onClick={() => setLightingMode("twilight")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
-                lightingMode === "twilight"
-                  ? "bg-amber-500 text-stone-950 font-bold shadow-xs"
-                  : "text-stone-600 hover:text-stone-900"
+              onClick={() => setShowColorCustomizer(!showColorCustomizer)}
+              title="Open Advanced Material & Color Customizer"
+              className={`p-2 rounded-xl text-xs font-medium border transition-colors flex items-center gap-1 ${
+                showColorCustomizer
+                  ? "bg-stone-900 text-white border-stone-800"
+                  : "bg-white text-stone-700 border-stone-200 hover:bg-stone-100"
               }`}
             >
-              Twilight Glow
-            </button>
-            <button
-              onClick={() => setLightingMode("day")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
-                lightingMode === "day"
-                  ? "bg-white text-stone-900 font-bold shadow-xs"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
-            >
-              Daylight
-            </button>
-            <button
-              onClick={() => setLightingMode("night")}
-              className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
-                lightingMode === "night"
-                  ? "bg-stone-900 text-amber-300 font-bold shadow-xs"
-                  : "text-stone-600 hover:text-stone-900"
-              }`}
-            >
-              Night Active
+              <Sliders className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Materials</span>
             </button>
           </div>
         )}
       </div>
 
+      {/* Advanced Materials & Colorway Drawer */}
+      {activeTab === "interactive-model" && showColorCustomizer && (
+        <div className="p-4 bg-stone-900 text-stone-100 rounded-2xl border border-stone-800 shadow-xl space-y-4 animate-in slide-in-from-top-2 duration-200">
+          <div className="flex items-center justify-between border-b border-stone-800 pb-2">
+            <div className="flex items-center gap-2">
+              <Sliders className="w-4 h-4 text-amber-400" />
+              <span className="font-bold text-xs uppercase tracking-wider text-stone-200">
+                Architectural Digital Twin: Material Finishes &amp; Optical Atmosphere
+              </span>
+            </div>
+            <span className="text-[11px] font-mono text-amber-400">
+              Active: {currentTheme.name}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+            {/* Setting 1: Theme Archetype */}
+            <div className="space-y-1.5 bg-stone-950/60 p-3 rounded-xl border border-stone-800">
+              <span className="text-[10px] uppercase font-mono text-stone-400 font-bold">
+                1. Structural Color Profile
+              </span>
+              <div className="grid grid-cols-2 gap-1.5 pt-1">
+                {(Object.keys(MODEL_COLOR_PROFILES) as ModelColorProfileId[]).map((pid) => {
+                  const p = MODEL_COLOR_PROFILES[pid];
+                  return (
+                    <button
+                      key={pid}
+                      onClick={() => setColorProfileId(pid)}
+                      className={`p-1.5 rounded-lg text-left text-[11px] font-medium border transition-all ${
+                        colorProfileId === pid
+                          ? "bg-stone-800 border-amber-400 text-white"
+                          : "bg-stone-900/60 border-stone-800 text-stone-400 hover:text-stone-200"
+                      }`}
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <span
+                          className="w-2.5 h-2.5 rounded-full shrink-0"
+                          style={{ backgroundColor: p.primaryAccent }}
+                        />
+                        <span className="truncate">{p.name.split(" ")[0]}</span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Setting 2: Solar Core Luminescence Bloom */}
+            <div className="space-y-1.5 bg-stone-950/60 p-3 rounded-xl border border-stone-800">
+              <span className="text-[10px] uppercase font-mono text-stone-400 font-bold">
+                2. Solar Core Luminescence
+              </span>
+              <div className="flex items-center gap-1.5 pt-1">
+                {(["subtle", "high", "overdrive"] as const).map((intensity) => (
+                  <button
+                    key={intensity}
+                    onClick={() => setSolarBloomIntensity(intensity)}
+                    className={`flex-1 py-1 px-2 rounded-lg text-center text-[11px] font-medium border capitalize transition-colors ${
+                      solarBloomIntensity === intensity
+                        ? "bg-stone-800 border-amber-400 text-amber-300 font-bold"
+                        : "bg-stone-900/60 border-stone-800 text-stone-400 hover:text-stone-200"
+                    }`}
+                  >
+                    {intensity}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] text-stone-400 pt-1 font-mono">
+                {solarBloomIntensity === "subtle"
+                  ? "25% Photon glow • Minimum battery drain"
+                  : solarBloomIntensity === "high"
+                  ? "75% Optimized illumination • Direct sunlight"
+                  : "100% Maximum twilight beacon • High visibility"}
+              </p>
+            </div>
+
+            {/* Setting 3: Chassis Material Coating */}
+            <div className="space-y-1.5 bg-stone-950/60 p-3 rounded-xl border border-stone-800">
+              <span className="text-[10px] uppercase font-mono text-stone-400 font-bold">
+                3. Physical Cladding Spec
+              </span>
+              <p className="font-semibold text-stone-200 text-xs">
+                {currentTheme.chassisMaterial}
+              </p>
+              <div className="flex items-center justify-between text-[11px] text-stone-400 pt-1">
+                <span>Thermal dissipation: 18°C</span>
+                <span className="font-mono text-emerald-400">IP67 Waterproof</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* TAB 1: 3D SHELTER CONCEPT EXPLORER */}
       {activeTab === "interactive-model" && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Main Visual Stage with Hotspots */}
-          <div className="lg:col-span-8 bg-stone-950 rounded-2xl border border-stone-800 overflow-hidden shadow-2xl relative group">
-            {/* Top Toolbar */}
+          <div
+            className={`lg:col-span-8 bg-gradient-to-br ${currentTheme.canvasBackdrop} rounded-2xl border ${currentTheme.borderAccent} overflow-hidden shadow-2xl relative group transition-colors duration-500`}
+          >
+            {/* Top Toolbar with Holographic HUD */}
             <div className="absolute top-3 inset-x-3 z-20 flex items-center justify-between gap-2 pointer-events-none">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-900/90 text-amber-300 text-xs font-semibold border border-stone-700/80 backdrop-blur-md pointer-events-auto shadow-md">
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-                KOM Node 3D Architectural Visualization
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-stone-950/85 backdrop-blur-md text-xs font-semibold border border-stone-700/80 pointer-events-auto shadow-md">
+                <span
+                  className="w-2 h-2 rounded-full animate-ping"
+                  style={{ backgroundColor: currentTheme.primaryAccent }}
+                />
+                <span className="text-white font-bold">KOM Node 3D Digital Twin</span>
+                <span className="text-stone-400">•</span>
+                <span
+                  className="text-[11px] font-mono hidden sm:inline"
+                  style={{ color: currentTheme.primaryAccent }}
+                >
+                  {currentTheme.name}
+                </span>
               </div>
 
               <div className="flex items-center gap-2 pointer-events-auto">
+                {/* HUD Telemetry Coordinate Badge */}
+                <div className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-950/80 border border-stone-800 text-[10px] font-mono text-stone-400 backdrop-blur-md">
+                  <Compass className="w-3 h-3 text-stone-400" />
+                  <span>26.76°N, 83.37°E • GKP-04</span>
+                </div>
+
                 <button
                   onClick={() => setIsLightboxOpen(true)}
                   title="View full-resolution poster"
@@ -235,14 +519,10 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
               </div>
             </div>
 
-            {/* Image Canvas with Ambient Lighting Filter */}
+            {/* Image Canvas with Ambient Lighting Filter & Dynamic Color Tint */}
             <div
               className={`relative overflow-hidden transition-all duration-700 ${
-                lightingMode === "twilight"
-                  ? "brightness-105 contrast-105"
-                  : lightingMode === "day"
-                  ? "brightness-110 contrast-100 saturate-105"
-                  : "brightness-90 contrast-115 hue-rotate-15"
+                currentTheme.filterClass[lightingMode]
               }`}
             >
               <img
@@ -251,16 +531,27 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
                 className="w-full h-auto max-h-[640px] object-cover select-none"
               />
 
-              {/* Ambient Glowing Solar Core Pulse Overlay */}
+              {/* Ambient Glowing Solar Core Pulse Overlay with Dynamic Hue & Bloom */}
               <div
                 style={{ left: "62%", top: "48%" }}
-                className={`absolute w-36 h-36 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none transition-opacity duration-1000 ${
-                  lightingMode === "night"
-                    ? "bg-amber-500/30 blur-2xl opacity-100"
-                    : lightingMode === "twilight"
-                    ? "bg-orange-500/25 blur-xl opacity-90"
-                    : "bg-amber-400/10 blur-lg opacity-40"
-                }`}
+                className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none transition-all duration-1000 ${
+                  solarBloomIntensity === "subtle"
+                    ? "w-28 h-28 opacity-40 blur-xl"
+                    : solarBloomIntensity === "high"
+                    ? "w-44 h-44 opacity-80 blur-2xl"
+                    : "w-60 h-60 opacity-95 blur-3xl"
+                } ${currentTheme.glowClass}`}
+              />
+
+              {/* Secondary Corner Photon Flare */}
+              <div
+                className="absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none blur-xl"
+                style={{
+                  left: "38%",
+                  top: "45%",
+                  backgroundColor: currentTheme.secondaryAccent,
+                  opacity: lightingMode === "night" ? 0.6 : 0.25,
+                }}
               />
 
               {/* Hotspot Interactive Markers */}
@@ -276,40 +567,59 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
                   >
                     <span className="relative flex h-8 w-8 items-center justify-center">
                       <span
-                        className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                          isSelected ? "bg-amber-400" : "bg-emerald-400"
-                        }`}
+                        className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                        style={{
+                          backgroundColor: isSelected
+                            ? currentTheme.primaryAccent
+                            : currentTheme.secondaryAccent,
+                        }}
                       />
                       <span
                         className={`relative inline-flex rounded-full h-6 w-6 items-center justify-center font-bold text-[10px] shadow-lg border-2 transition-transform duration-200 group-hover/pin:scale-125 ${
                           isSelected
-                            ? "bg-amber-400 text-stone-950 border-white scale-110"
-                            : "bg-stone-900 text-white border-amber-400"
+                            ? `${currentTheme.pinActiveBg} border-white scale-110`
+                            : `${currentTheme.pinInactiveBg} ${currentTheme.pinBorder}`
                         }`}
                       >
                         {h.id === "kiosk-terminal" ? (
-                          <Mic className="w-3 h-3 text-stone-950" />
+                          <Mic className="w-3 h-3" />
                         ) : h.id === "solar-pillar" ? (
-                          <Zap className="w-3 h-3 text-amber-300" />
+                          <Zap className="w-3 h-3" />
                         ) : (
-                          <span className="w-2 h-2 rounded-full bg-amber-400" />
+                          <span
+                            className="w-2 h-2 rounded-full"
+                            style={{ backgroundColor: currentTheme.primaryAccent }}
+                          />
                         )}
                       </span>
                     </span>
 
                     {/* Tooltip on Hover */}
-                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover/pin:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-900/95 text-stone-100 text-[11px] font-semibold whitespace-nowrap border border-stone-700 shadow-xl pointer-events-none">
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover/pin:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-stone-950/95 text-stone-100 text-[11px] font-semibold whitespace-nowrap border border-stone-700 shadow-xl pointer-events-none">
                       <span>{h.title}</span>
                     </span>
                   </button>
                 );
               })}
+
+              {/* Holographic Radar / Grid Watermark Overlay */}
+              <div className="absolute bottom-16 right-4 pointer-events-none hidden md:flex flex-col items-end text-[9px] font-mono text-white/50 space-y-0.5 bg-black/40 backdrop-blur-xs p-2 rounded-lg border border-white/10">
+                <div className="flex items-center gap-1 text-emerald-400">
+                  <Activity className="w-3 h-3 animate-pulse" />
+                  <span>GRID HARVEST: 120W SOLAR</span>
+                </div>
+                <span>E-PAPER DRAW: 1.8W PASSIVE</span>
+                <span>CHASSIS: {currentTheme.chassisMaterial.split(" ")[0]}</span>
+              </div>
             </div>
 
             {/* Bottom Floating Bar */}
             <div className="p-4 bg-gradient-to-t from-stone-950 via-stone-950/95 to-transparent text-xs text-stone-300 flex flex-wrap items-center justify-between gap-3 border-t border-stone-800/80">
               <div className="flex items-center gap-2">
-                <span className="text-amber-400 font-semibold flex items-center gap-1">
+                <span
+                  className="font-semibold flex items-center gap-1"
+                  style={{ color: currentTheme.primaryAccent }}
+                >
                   <Sparkles className="w-3.5 h-3.5" />
                   Interactive Architectural Hotspots:
                 </span>
@@ -318,16 +628,21 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
                 </span>
               </div>
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {hotspots.map((h) => (
                   <button
                     key={h.id}
                     onClick={() => setSelectedHotspot(h.id)}
                     className={`px-2 py-1 rounded-md text-[11px] font-medium transition-colors ${
                       h.id === selectedHotspot
-                        ? "bg-amber-500 text-stone-950 font-bold"
+                        ? "text-stone-950 font-bold"
                         : "bg-stone-900 text-stone-400 hover:text-stone-200 border border-stone-800"
                     }`}
+                    style={
+                      h.id === selectedHotspot
+                        ? { backgroundColor: currentTheme.primaryAccent }
+                        : {}
+                    }
                   >
                     {h.title.split(" ")[0]}
                   </button>
@@ -339,9 +654,22 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
           {/* Component Deep-Dive Inspection Panel */}
           <div className="lg:col-span-4 bg-white rounded-2xl border border-stone-200 shadow-sm p-6 space-y-5">
             <div className="space-y-1 border-b border-stone-100 pb-4">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/60 inline-block">
-                {activeHotspotData.tag}
-              </span>
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <span
+                  className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border inline-block"
+                  style={{
+                    backgroundColor: `${currentTheme.primaryAccent}15`,
+                    color: currentTheme.primaryAccent,
+                    borderColor: `${currentTheme.primaryAccent}40`,
+                  }}
+                >
+                  {activeHotspotData.tag}
+                </span>
+                <span className="text-[10px] font-mono text-stone-400">
+                  {currentTheme.name.split(" ")[0]} Finish
+                </span>
+              </div>
+
               <h3 className="text-lg font-bold text-stone-900 pt-1">
                 {activeHotspotData.title}
               </h3>
@@ -358,9 +686,14 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
               </span>
               <div className="space-y-2">
                 {Object.entries(activeHotspotData.specs).map(([key, val]) => (
-                  <div key={key} className="flex items-center justify-between border-b border-stone-200/50 pb-1.5">
+                  <div
+                    key={key}
+                    className="flex items-center justify-between border-b border-stone-200/50 pb-1.5"
+                  >
                     <span className="text-stone-500">{key}</span>
-                    <span className="font-semibold text-stone-900 font-mono text-right">{val}</span>
+                    <span className="font-semibold text-stone-900 font-mono text-right">
+                      {val}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -370,7 +703,10 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
             {activeHotspotData.actionId === "voice" && onActivateVoiceAgent && (
               <button
                 onClick={onActivateVoiceAgent}
-                className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-amber-500/20"
+                className="w-full py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-md text-stone-950"
+                style={{
+                  backgroundColor: currentTheme.primaryAccent,
+                }}
               >
                 <Mic className="w-4 h-4" />
                 <span>Open Live Voice Feedback Agent</span>
@@ -390,13 +726,22 @@ export const TransitNode3DModel: React.FC<TransitNode3DModelProps> = ({
             )}
 
             {/* Quick Context Callout */}
-            <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200/60 text-xs text-amber-900 space-y-1">
-              <span className="font-bold flex items-center gap-1 text-[11px]">
-                <Shield className="w-3.5 h-3.5 text-amber-700" />
+            <div
+              className="p-3.5 rounded-xl border text-xs space-y-1"
+              style={{
+                backgroundColor: `${currentTheme.primaryAccent}0d`,
+                borderColor: `${currentTheme.primaryAccent}30`,
+              }}
+            >
+              <span
+                className="font-bold flex items-center gap-1 text-[11px]"
+                style={{ color: currentTheme.primaryAccent }}
+              >
+                <Shield className="w-3.5 h-3.5" />
                 Civic Utility Zero-CapEx Architecture:
               </span>
-              <p className="text-[11px] text-amber-800 leading-relaxed">
-                Rather than replacing municipal bus shelters at ₹18,00,000 each, KOM Node installs as a modular ₹42,000 retrofit clamp-on kit with zero civil work required.
+              <p className="text-[11px] text-stone-700 leading-relaxed">
+                Rather than replacing municipal bus shelters at ₹18,00,000 each, KOM Node installs as a modular ₹42,000 retrofit clamp-on kit with zero civil excavation required.
               </p>
             </div>
           </div>

@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   Sparkles,
   Mic,
+  GitBranch,
 } from "lucide-react";
 
 interface HeaderProps {
@@ -33,6 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: "prototype", label: "Live Node Prototype", icon: Cpu },
     { id: "voice-live", label: "Voice Live Agent", icon: Mic },
     { id: "visual-artifact", label: "Visual Artifacts", icon: Layers },
+    { id: "deployment", label: "Deployment", icon: GitBranch },
   ];
 
   return (
