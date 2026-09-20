@@ -1,0 +1,6 @@
+{
+  "name": "KOM Node - Kinetic Opportunity Mesh",
+  "description": "AI-driven Proof-of-Work talent curation and social mobility infrastructure reimagining transit hubs for Tier-2/3 student opportunity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
