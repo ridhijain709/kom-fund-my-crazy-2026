@@ -23,6 +23,7 @@ export const ExecutiveBriefDocuments: React.FC = () => {
     "flow-diagram"
   );
   const [copied, setCopied] = useState<string | null>(null);
+  const [downloaded, setDownloaded] = useState<string | null>(null);
 
   const handlePrint = () => {
     window.print();
@@ -32,6 +33,20 @@ export const ExecutiveBriefDocuments: React.FC = () => {
     navigator.clipboard.writeText(text);
     setCopied(docId);
     setTimeout(() => setCopied(null), 2500);
+  };
+
+  const handleDownloadFile = (filename: string, content: string, docId: string) => {
+    const blob = new Blob([content], { type: "text/markdown;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    setDownloaded(docId);
+    setTimeout(() => setDownloaded(null), 2500);
   };
 
   const flowDiagramMarkdown = `# SYSTEM DATA FLOW & ARCHITECTURE DIAGRAM
@@ -174,6 +189,36 @@ Google Gemini acts as our automated, objective evaluation engine. Instead of rel
             </button>
           </div>
 
+          {/* Download Raw Markdown File Button */}
+          <button
+            onClick={() =>
+              handleDownloadFile(
+                activeDoc === "flow-diagram"
+                  ? "KOM_Node_System_Data_Flow_Architecture_Diagram.md"
+                  : "KOM_Node_Technical_Brief_Gemini_AI_Integration.md",
+                activeDoc === "flow-diagram"
+                  ? flowDiagramMarkdown
+                  : geminiBriefMarkdown,
+                activeDoc
+              )
+            }
+            className="px-3 py-1.5 rounded-xl border border-stone-200 bg-white text-stone-700 text-xs font-semibold hover:bg-stone-50 flex items-center gap-1.5 transition-colors shadow-xs"
+            title="Download formatted markdown file (.md) to your computer"
+          >
+            {downloaded === activeDoc ? (
+              <>
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+                Downloaded!
+              </>
+            ) : (
+              <>
+                <Download className="w-3.5 h-3.5 text-stone-500" />
+                Download (.md)
+              </>
+            )}
+          </button>
+
+          {/* Copy Raw Text Button */}
           <button
             onClick={() =>
               handleCopyMarkdown(
@@ -198,14 +243,37 @@ Google Gemini acts as our automated, objective evaluation engine. Instead of rel
             )}
           </button>
 
+          {/* Save as PDF / Print Trigger */}
           <button
             onClick={handlePrint}
-            className="px-4 py-1.5 rounded-xl bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 flex items-center gap-1.5 transition-colors shadow-xs"
+            className="px-4 py-1.5 rounded-xl bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
           >
             <Printer className="w-3.5 h-3.5" />
             Save as PDF / Print
           </button>
         </div>
+      </div>
+
+      {/* PDF Export & Submission Guide Callout (Screen only) */}
+      <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 text-emerald-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 print:hidden">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 font-bold text-xs text-emerald-900">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span>How to Save &amp; Submit as PDF for the Competition</span>
+          </div>
+          <p className="text-xs text-emerald-800 leading-relaxed max-w-2xl">
+            1. Click <strong>"Save as PDF / Print"</strong> above (or press <kbd className="px-1.5 py-0.5 rounded bg-emerald-100 border border-emerald-300 font-mono text-[10px]">Ctrl+P</kbd> / <kbd className="px-1.5 py-0.5 rounded bg-emerald-100 border border-emerald-300 font-mono text-[10px]">Cmd+P</kbd>).<br />
+            2. Set <strong>Destination</strong> to <strong>"Save as PDF"</strong> in your browser's print dialog.<br />
+            3. Check <strong>"Background graphics"</strong> to retain shaded cards and dividers, then click <strong>Save</strong> to export the submission-ready PDF.
+          </p>
+        </div>
+        <button
+          onClick={handlePrint}
+          className="shrink-0 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 cursor-pointer"
+        >
+          <Printer className="w-4 h-4" />
+          <span>Export {activeDoc === "flow-diagram" ? "Flow Diagram" : "Gemini Brief"} PDF</span>
+        </button>
       </div>
 
       {/* DOCUMENT 1: SYSTEM DATA FLOW & ARCHITECTURE DIAGRAM */}

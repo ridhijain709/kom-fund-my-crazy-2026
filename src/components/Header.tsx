@@ -34,6 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: "prototype", label: "Live Node Prototype", icon: Cpu },
     { id: "voice-live", label: "Voice Live Agent", icon: Mic },
     { id: "visual-artifact", label: "Visual Artifacts", icon: Layers },
+    { id: "pdf-docs", label: "PDF Briefs & Flow", icon: FileText },
     { id: "deployment", label: "Deployment", icon: GitBranch },
   ];
 

@@ -7,6 +7,7 @@ import { GeminiEcosystemHub } from "./components/GeminiEcosystemHub";
 import { TransitNode3DModel } from "./components/TransitNode3DModel";
 import { VoiceLiveFeedbackAgent } from "./components/VoiceLiveFeedbackAgent";
 import { GitHubDeploymentStatus } from "./components/GitHubDeploymentStatus";
+import { ExecutiveBriefDocuments } from "./components/ExecutiveBriefDocuments";
 import {
   ExternalLink,
   ShieldCheck,
@@ -113,6 +114,8 @@ export default function App() {
           </div>
         )}
 
+        {activeTab === "pdf-docs" && <ExecutiveBriefDocuments />}
+
         {activeTab === "gemini-hub" && <GeminiEcosystemHub />}
       </main>
 
@@ -137,6 +140,14 @@ export default function App() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => setActiveTab("pdf-docs")}
+                className="flex items-center gap-1.5 text-stone-700 hover:text-stone-950 font-medium transition-colors cursor-pointer"
+              >
+                <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Executive PDF Briefs &amp; Flow</span>
+              </button>
+              <span>•</span>
               <button
                 onClick={() => setActiveTab("deployment")}
                 className="flex items-center gap-1.5 text-stone-700 hover:text-stone-950 font-medium transition-colors cursor-pointer"
