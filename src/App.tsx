@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Header } from "./components/Header";
+import { PitchDeckViewer } from "./components/PitchDeckViewer";
 import { LiveNodePrototype } from "./components/LiveNodePrototype";
 import { VisualArtifact } from "./components/VisualArtifact";
 import { CivicSubmissionDossier } from "./components/CivicSubmissionDossier";
@@ -17,10 +18,13 @@ import {
   Cpu,
   Compass,
   Mic,
+  FileText,
+  Users,
 } from "lucide-react";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<string>("civic-entry");
+  // Default to the 5 official pitch deck pages so it loads first!
+  const [activeTab, setActiveTab] = useState<string>("pitch-deck");
   const [isLowBandwidth, setIsLowBandwidth] = useState<boolean>(false);
 
   return (
@@ -37,12 +41,62 @@ export default function App() {
         setIsLowBandwidth={setIsLowBandwidth}
       />
 
+      {/* Prominent Global Team & FMC Submission Banner */}
+      <div className="bg-stone-900 text-stone-100 border-b border-stone-800 py-2.5 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2.5 py-0.5 rounded-full bg-amber-500 text-stone-950 font-extrabold uppercase tracking-wide">
+              Official FMC 2026
+            </span>
+            <span className="text-stone-500">•</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+              <Users className="w-3.5 h-3.5 text-emerald-400" />
+              Team: Ridhi Jain (Leader) &amp; Vanshika (Core Teammate)
+            </div>
+            <span className="text-stone-500">•</span>
+            <span className="text-stone-300 font-medium">
+              Project: UnBias AI — KOM Node (Kinetic Opportunity Mesh)
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setActiveTab("pitch-deck")}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "pitch-deck"
+                  ? "bg-amber-500 text-stone-950 shadow-xs"
+                  : "bg-stone-800 text-amber-300 hover:bg-stone-700 border border-stone-700"
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              5 Official Pitch Pages
+            </button>
+            <button
+              onClick={() => setActiveTab("civic-entry")}
+              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === "civic-entry"
+                  ? "bg-stone-100 text-stone-950 shadow-xs"
+                  : "bg-stone-800 text-stone-300 hover:bg-stone-700 border border-stone-700"
+              }`}
+            >
+              <Compass className="w-3.5 h-3.5" />
+              Civic Entry
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+        {/* TAB 1: 5 OFFICIAL PITCH PAGES (DEFAULT VIEW) */}
+        {activeTab === "pitch-deck" && <PitchDeckViewer />}
+
+        {/* TAB 2: OFFICIAL CIVIC ENTRY DOSSIER */}
         {activeTab === "civic-entry" && (
           <CivicSubmissionDossier onNavigateTab={setActiveTab} />
         )}
 
+        {/* TAB 3: 3D TRANSIT SHELTER CONCEPT */}
         {activeTab === "shelter-3d" && (
           <TransitNode3DModel
             onActivateVoiceAgent={() => setActiveTab("voice-live")}
@@ -50,10 +104,12 @@ export default function App() {
           />
         )}
 
+        {/* TAB 4: LIVE KIOSK NODE PROTOTYPE */}
         {activeTab === "prototype" && (
           <LiveNodePrototype isLowBandwidth={isLowBandwidth} />
         )}
 
+        {/* TAB 5: GEMINI VOICE AGENT LOOP */}
         {activeTab === "voice-live" && (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-stone-900 via-stone-800 to-amber-950 p-6 sm:p-7 rounded-2xl border border-stone-800 text-stone-100 shadow-xl flex flex-wrap items-center justify-between gap-4">
@@ -73,7 +129,7 @@ export default function App() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setActiveTab("prototype")}
-                  className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold transition-all shadow-sm"
+                  className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-bold transition-all shadow-sm cursor-pointer"
                 >
                   Go to Live Kiosk Prototype →
                 </button>
@@ -92,8 +148,7 @@ export default function App() {
           activeTab === "causal-loop" ||
           activeTab === "demographics" ||
           activeTab === "roi-matrix" ||
-          activeTab === "pilot" ||
-          activeTab === "pitch-deck") && <VisualArtifact />}
+          activeTab === "pilot") && <VisualArtifact />}
 
         {activeTab === "deployment" && (
           <div className="space-y-6">
@@ -122,7 +177,6 @@ export default function App() {
       {/* Global Footer with Dynamic Deployment Badge & Repository Telemetry */}
       <footer className="border-t border-stone-200 bg-white pt-8 pb-6 text-xs text-stone-500 mt-12 space-y-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {/* Dynamically Updated Badge Displaying Commit Status, Contributor Count & Issue Status */}
           <div className="mb-6">
             <GitHubDeploymentStatus variant="footer-embedded" />
           </div>
@@ -130,6 +184,8 @@ export default function App() {
           <div className="pt-4 border-t border-stone-100 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-bold text-stone-900">KOM Node</span>
+              <span>•</span>
+              <span className="font-semibold text-stone-800">Team: Ridhi Jain (Leader) &amp; Vanshika</span>
               <span>•</span>
               <span>Fund My Crazy 2026 Submission</span>
               <span>•</span>
@@ -141,19 +197,19 @@ export default function App() {
 
             <div className="flex flex-wrap items-center gap-4">
               <button
+                onClick={() => setActiveTab("pitch-deck")}
+                className="flex items-center gap-1.5 text-amber-700 hover:text-amber-900 font-bold transition-colors cursor-pointer"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>5 Pitch Pages</span>
+              </button>
+              <span>•</span>
+              <button
                 onClick={() => setActiveTab("pdf-docs")}
                 className="flex items-center gap-1.5 text-stone-700 hover:text-stone-950 font-medium transition-colors cursor-pointer"
               >
                 <Layers className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Executive PDF Briefs &amp; Flow</span>
-              </button>
-              <span>•</span>
-              <button
-                onClick={() => setActiveTab("deployment")}
-                className="flex items-center gap-1.5 text-stone-700 hover:text-stone-950 font-medium transition-colors cursor-pointer"
-              >
-                <GitBranch className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Dedicated Deployment Section</span>
+                <span>Executive PDF Briefs</span>
               </button>
               <span>•</span>
               <a
